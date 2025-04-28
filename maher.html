@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="مركز الماهر بالقرآن لتعليم القرآن الكريم وعلومه في ولاية المسيلة، الجزائر، يهدف إلى إنشاء جيل قرآني متدبر وعامل بكتاب الله">
+  <meta name="keywords" content="تعليم القرآن, حفظ القرآن, تجويد, مركز الماهر, المسيلة, الجزائر">
+  <title>مركز الماهر بالقرآن</title>
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css" />
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Google Fonts for Arabic Typography (Updated) -->
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1E3A8A; /* أزرق داكن */
+      --secondary: #D4AF37; /* ذهبي */
+      --neutral: #1F2937; /* أسود فاتح */
+      --background: #F9FAFB; /* أبيض ناعم */
+      --text: #1F2937; /* نص داكن */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Amiri', serif; /* Updated main font to Amiri */
+      line-height: 1.6;
+      color: var(--text);
+      background: url('layer.png') repeat;
+      background-size: auto;
+      background-attachment: fixed;
+      overflow-x: hidden;
+      background-color: var(--background);
+    }
+
+    h1, h2, h3 {
+      font-family: 'Cairo', sans-serif; /* Updated headings font to Cairo */
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Navbar (Updated for better aesthetics) */
+    .navbar {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.459), rgba(255, 255, 255, 0.295)); /* Gradient background */
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      padding: 1rem 0;
+      position: fixed;
+      top: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      z-index: 50;
+      border-radius: 30px; /* More rounded corners */
+      backdrop-filter: blur(10px); /* Glassmorphism effect */
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .nav-link {
+      color: var(--text);
+      font-family: 'Cairo', sans-serif; /* Updated font */
+      font-weight: 600;
+      padding: 0.5rem 1.2rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+      background: rgba(212, 175, 55, 0.2); /* Subtle hover background */
+      transform: translateY(-2px);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: var(--secondary);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 50%;
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: var(--primary);
+      transition: all 0.3s ease;
+    }
+
+    .hamburger:hover {
+      transform: rotate(90deg);
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: var(--primary);
+      color: #FFFFFF;
+      padding: 0.5rem 1.5rem;
+      border-radius: 8px;
+      font-family: 'Cairo', sans-serif; /* Updated font */
+      font-weight: 600;
+      text-align: center;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    /* Section Title */
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: var(--secondary);
+      border-radius: 2px;
+    }
+
+    /* Landing Section */
+    .landing-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 0;
+    }
+
+    .landing-logo {
+      width: 500px;
+      height: 500px;
+      object-fit: contain;
+      animation: shakeUpDown 2s infinite ease-in-out;
+    }
+
+    @keyframes shakeUpDown {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .landing-title {
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .landing-subtitle {
+      font-size: 1.25rem;
+      color: #4B5563;
+      margin: 1.5rem 0 2rem;
+    }
+
+    /* Swiper for Welcome Section */
+    .welcome-swiper .swiper-slide img,
+    .welcome-swiper .swiper-slide video {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .welcome-swiper .swiper-button-next,
+    .welcome-swiper .swiper-button-prev {
+      color: var(--primary);
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .welcome-swiper .swiper-button-next:after,
+    .welcome-swiper .swiper-button-prev:after {
+      font-size: 16px;
+    }
+
+    .welcome-swiper .swiper-pagination-bullet {
+      background: var(--primary);
+      opacity: 0.5;
+    }
+
+    .welcome-swiper .swiper-pagination-bullet-active {
+      opacity: 1;
+    }
+
+    /* Swiper for Branches Section */
+    .branches-swiper .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.5s ease;
+      opacity: 0;
+    }
+
+    .branches-swiper .swiper-slide-active {
+      z-index: 3;
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .branches-swiper .swiper-slide-prev,
+    .branches-swiper .swiper-slide-next {
+      z-index: 2;
+      transform: scale(0.85) translateX(20%);
+      filter: blur(5px);
+      opacity: 0.6;
+    }
+
+    .branches-swiper .swiper-slide-prev {
+      transform: scale(0.85) translateX(-20%);
+    }
+
+    .branches-swiper .swiper-button-next,
+    .branches-swiper .swiper-button-prev {
+      color: var(--primary);
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .branches-swiper .swiper-button-next:after,
+    .branches-swiper .swiper-button-prev:after {
+      font-size: 16px;
+    }
+
+    .branches-swiper .swiper-pagination-bullet {
+      background: var(--primary);
+      opacity: 0.5;
+    }
+
+    .branches-swiper .swiper-pagination-bullet-active {
+      opacity: 1;
+    }
+
+    .branch-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+      transition: transform 0.3s ease;
+    }
+
+    .branch-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .branch-image {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    /* Cards */
+    .card {
+      background: white;
+      border: 1px solid #E5E7EB;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Stat Card */
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      animation: fadeInUp 0.5s ease-out forwards;
+      animation-delay: calc(var(--delay) * 0.2s);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .stat-card i {
+      color: var(--primary);
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover i {
+      transform: scale(1.1);
+    }
+
+    .stat-card h3 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .stat-card p {
+      font-size: 1rem;
+      color: #4B5563;
+      margin-top: 0.5rem;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* About Card */
+    .about-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .about-card i {
+      color: var(--primary);
+      font-size: 1.5rem;
+    }
+
+    .about-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .about-card p {
+      font-size: 1rem;
+      color: #4B5563;
+    }
+
+    /* Subjects Section */
+    .subjects-container {
+      position: relative;
+    }
+
+    .subject-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      z-index: 1;
+    }
+
+    .subject-item:hover {
+      background: #E5E7EB;
+    }
+
+    .subject-item.active {
+      background: rgba(30, 58, 138, 0.1);
+      transform: scale(1.02);
+      border: 2px solid var(--secondary);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .subject-item.active h3 {
+      font-size: 1.35rem;
+      color: var(--primary);
+    }
+
+    .subjects-container::before {
+      content: '';
+      position: absolute;
+      left: calc(33.333% - 1rem);
+      top: 0;
+      width: 2px;
+      height: 0;
+      background: var(--primary);
+      transition: height 0.5s ease;
+    }
+
+    .subjects-container.active-0::before { height: calc(25% - 0.5rem); }
+    .subjects-container.active-1::before { height: calc(50% - 0.5rem); }
+    .subjects-container.active-2::before { height: calc(75% - 0.5rem); }
+    .subjects-container.active-3::before { height: 100%; }
+
+    .subject-number {
+      background: var(--primary);
+      color: white;
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+
+    .subject-item.active .subject-number {
+      background: var(--secondary);
+      transform: scale(1.1);
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1.1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .subject-item h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      transition: all 0.3s ease;
+    }
+
+    .subject-description-card {
+      margin-top: 1rem;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      animation: slideIn 0.5s ease-out;
+      flex-direction: row-reverse;
+    }
+
+    .subject-description-card img {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    .subject-description-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .subject-description-card p {
+      color: #4B5563;
+      font-size: 1.1rem;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Testimonial Section */
+    .testimonial-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+      transition: transform 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .testimonial-card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 1rem;
+    }
+
+    .testimonial-card p {
+      color: #4B5563;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-card h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .testimonials-swiper .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.5s ease;
+      opacity: 0;
+    }
+
+    .testimonials-swiper .swiper-slide-active {
+      z-index: 3;
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .testimonials-swiper .swiper-slide-prev,
+    .testimonials-swiper .swiper-slide-next {
+      z-index: 2;
+      transform: scale(0.85) translateX(20%);
+      filter: blur(5px);
+      opacity: 0.6;
+    }
+
+    .testimonials-swiper .swiper-slide-prev {
+      transform: scale(0.85) translateX(-20%);
+    }
+
+    .testimonials-swiper .swiper-button-next,
+    .testimonials-swiper .swiper-button-prev {
+      color: var(--primary);
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .testimonials-swiper .swiper-button-next:after,
+    .testimonials-swiper .swiper-button-prev:after {
+      font-size: 16px;
+    }
+
+    .testimonials-swiper .swiper-pagination-bullet {
+      background: var(--primary);
+      opacity: 0.5;
+    }
+
+    .testimonials-swiper .swiper-pagination-bullet-active {
+      opacity: 1;
+    }
+
+    /* Events Section */
+    .event-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .event-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .event-card h4 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .event-card p {
+      color: #4B5563;
+      margin-bottom: 1rem;
+    }
+
+    .event-date {
+      color: var(--secondary);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      background: var(--primary);
+      color: white;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .back-to-top i {
+      font-size: 1.5rem;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--primary);
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    .footer h4 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--secondary);
+    }
+
+    .footer p {
+      margin: 0.5rem 0;
+      color: #E5E7EB;
+    }
+
+    .footer i {
+      font-size: 1.5rem;
+      margin: 0 0.75rem;
+      color: #FFFFFF;
+      transition: all 0.3s ease;
+    }
+
+    .footer i:hover {
+      color: var(--secondary);
+      transform: scale(1.1);
+    }
+
+    /* Fade-in Animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .navbar {
+        width: 95%;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: white;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+        border-radius: 0 0 20px 20px;
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      .nav-link {
+        padding: 0.75rem;
+        text-align: center;
+        width: 100%;
+      }
+
+      .landing-title {
+        font-size: 2rem;
+      }
+
+      .landing-subtitle {
+        font-size: 1rem;
+      }
+
+      .landing-logo {
+        width: 200px;
+        height: 200px;
+      }
+
+      .welcome-swiper .swiper-slide img,
+      .welcome-swiper .swiper-slide video {
+        height: 300px;
+      }
+
+      .branch-card,
+      .testimonial-card {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .branches-swiper .swiper-slide-prev,
+      .branches-swiper .swiper-slide-next,
+      .testimonials-swiper .swiper-slide-prev,
+      .testimonials-swiper .swiper-slide-next {
+        display: none;
+      }
+
+      .branches-swiper .swiper-slide,
+      .testimonials-swiper .swiper-slide {
+        opacity: 1;
+      }
+
+      .stat-card {
+        padding: 1rem;
+      }
+
+      .subject-description-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .subject-description-card img {
+        width: 120px;
+        height: 120px;
+      }
+
+      .footer .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .back-to-top {
+        bottom: 1rem;
+        left: 1rem;
+        width: 40px;
+        height: 40px;
+      }
+
+      .back-to-top i {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <div id="error-message" style="display: none; color: #EF4444; text-align: center; margin: 20px; font-size: 1.5rem;">
+    حدث خطأ أثناء تحميل الموقع. يرجى التحقق من الاتصال بالإنترنت والمحاولة مرة أخرى.
+  </div>
+
+  <!-- Load Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.6/babel.min.js"></script>
+  <script src="https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"></script>
+
+  <script type="text/babel">
+    const { useEffect, useState } = React;
+
+    // Navbar Component (Updated for better aesthetics)
+    const Navbar = () => {
+      const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+      const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+      };
+
+      return (
+        <nav className="navbar" aria-label="التنقل الرئيسي">
+          <div className="container flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <img src="logo1.png" alt="شعار مركز الماهر بالقرآن لتعليم القرآن الكريم" className="h-20" loading="lazy" />
+            </div>
+            <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
+              {['الرئيسية', 'عن_المركز', 'الفروع', 'الأقسام', 'المواد', 'الإحصائيات', 'آراء_الطلاب', 'الأحداث_القادمة', 'تواصل_معنا'].map((item) => (
+                <li key={item}>
+                  <a href={`#${item}`} className="nav-link" onClick={() => setIsMenuOpen(false)}>
+                    {item.replace('_', ' ')}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div className="flex items-center gap-4">
+              <a href="#تواصل_معنا" className="btn-primary">تواصلوا معنا</a>
+              <div className="hamburger" onClick={toggleMenu}>
+                <i className={isMenuOpen ? "fas fa-times" : "fas fa-bars"}></i>
+              </div>
+            </div>
+          </div>
+        </nav>
+      );
+    };
+
+    // Landing Section Component
+    const LandingSection = () => {
+      return (
+        <section id="landing" className="landing-section">
+          <div className="container flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="text-right max-w-lg">
+              <h1 className="landing-title">مركز الماهر بالقرآن</h1>
+              <p className="landing-subtitle">نصنع جيلًا قرآنيًا حافظًا لكتاب الله، متدبرًا لمعانيه، عاملًا بمقتضاه</p>
+              <a href="#الرئيسية" className="btn-primary">اكتشف المزيد</a>
+            </div>
+            <img src="logo.png" alt="شعار مركز الماهر بالقرآن لتعليم القرآن الكريم" className="landing-logo" loading="lazy" />
+          </div>
+        </section>
+      );
+    };
+
+    // Welcome Section Component
+    const WelcomeSection = () => {
+      useEffect(() => {
+        try {
+          if (!window.Swiper) throw new Error('Swiper library not loaded.');
+          const swiper = new Swiper('.welcome-swiper', {
+            loop: true,
+            autoplay: { delay: 5000 },
+            effect: 'fade',
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+          });
+        } catch (error) {
+          console.error('Error initializing Swiper:', error);
+        }
+      }, []);
+
+      return (
+        <section id="الرئيسية" className="py-20 fade-in">
+          <div className="container text-center">
+            <h2 className="section-title">مرحبًا بكم في مركز الماهر بالقرآن</h2>
+            <div className="welcome-swiper relative">
+              <div className="swiper-wrapper">
+                <div className="swiper-slide">
+                  <img src="9.jpg" alt="جلسة تعليم القرآن في مركز الماهر" loading="lazy" />
+                </div>
+                <div className="swiper-slide">
+                  <img src="9.jpg" alt="نشاط تعليمي في مركز الماهر بالقرآن" loading="lazy" />
+                </div>
+                <div className="swiper-slide">
+                  <img src="9.jpg" alt="جلسة تعليم القرآن في مركز الماهر" loading="lazy" />
+                </div>
+              </div>
+              <div className="swiper-pagination"></div>
+              <div className="swiper-button-next"></div>
+              <div className="swiper-button-prev"></div>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // About Section Component
+    const AboutSection = () => {
+      return (
+        <section id="عن_المركز" className="py-20 fade-in">
+          <div className="container">
+            <h2 className="section-title">عن مركز الماهر بالقرآن</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="about-card">
+                <i className="fas fa-users"></i>
+                <div>
+                  <h3>التأسيس</h3>
+                  <p>تأسست جمعية الماهر للعلوم والتربية - مركز الماهر بالقرآن - سنة 2015 من طرف ثلة من الشباب الطموح بهدف نشر تعليم القرآن الكريم وعلومه.</p>
+                </div>
+              </div>
+              <div className="about-card">
+                <i className="fas fa-bullseye"></i>
+                <div>
+                  <h3>الشعار</h3>
+                  <p>نمذجة التعليم القرآني والارتقاء به من الحفظ المجرد إلى التدبر المفضي للعمل.</p>
+                </div>
+              </div>
+              <div className="about-card">
+                <i className="fas fa-handshake"></i>
+                <div>
+                  <h3>الرسالة</h3>
+                  <p>المساهمة في إنشاء جيل قرآني حافظ لكتاب الله، ضابط لتلاوته، متدبر لمعانيه، عامل بمقتضاه.</p>
+                </div>
+              </div>
+              <div className="about-card">
+                <i className="fas fa-chart-line"></i>
+                <div>
+                  <h3>الرؤية</h3>
+                  <p>إنشاء مدرسة قرآنية نموذجية في كل قرية من قرى ولاية المسيلة لتحقيق الأهداف السامية لمشروعنا القرآني.</p>
+                </div>
+              </div>
+              <div className="about-card">
+                <i className="fas fa-user-graduate"></i>
+                <div>
+                  <h3>عدد الطلبة</h3>
+                  <p>بلغ عدد الطلبة داخل المركز 1500 طالب من مختلف فئات المجتمع، موزعين بين أقسام الطلبة النظاميين وأقسام التحضيري وأفواج الأمهات والرجال.</p>
+                </div>
+              </div>
+              <div className="about-card">
+                <i className="fas fa-chalkboard-teacher"></i>
+                <div>
+                  <h3>التأطير</h3>
+                  <p>يشرف على هذا المركز طاقم تربوي يتكون من مدير المركز و50 أستاذ وأستاذة وإداريين.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // Branches Section Component (Updated with unique images and Facebook links)
+    const BranchesSection = () => {
+      const branches = [
+        { name: 'فرع المسيلة المركزي', image: '7.jpg', facebook: 'https://www.facebook.com/maher.msilacentral' },
+        { name: 'فرع مزير', image: '7.jpg', facebook: 'https://www.facebook.com/maher.ouledsidiibrahim' },
+        { name: 'فرع بوسعادة',  image: '7.jpg', facebook: 'https://www.facebook.com/maher.boussada' },
+        { name: 'فرع حمام الضلعة ',  image: '7.jpg', facebook: 'https://www.facebook.com/maher.sidiissa' },
+        { name: 'فرع أهل الواد',  image: '7.jpg', facebook: 'https://www.facebook.com/maher.elhammam' },
+        { name: 'فرع بوخميسة ',  image: '7.jpg', facebook: 'https://www.facebook.com/maher.ainelhajal' },
+        { name: 'فرع تامونت',  image: '7.jpg', facebook: 'https://www.facebook.com/maher.chellal' },
+        { name: 'فرع ونوغة',  image: '7.jpg', facebook: 'https://www.facebook.com/maher.moghir' },
+        { name: 'فرع إقامة السرايا', image: '7.jpg', facebook: 'https://www.facebook.com/maher.bensrour' },
+        { name: 'فرع أولاد دراج',  image: '7.jpg', facebook: 'https://www.facebook.com/maher.ouledderradj' },
+        
+      ];
+
+      useEffect(() => {
+        try {
+          if (!window.Swiper) throw new Error('Swiper library not loaded.');
+          const swiper = new Swiper('.branches-swiper', {
+            loop: true,
+            slidesPerView: 3,
+            centeredSlides: true,
+            spaceBetween: 20,
+            autoplay: { delay: 5000 },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            breakpoints: {
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+              },
+              0: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
+            },
+          });
+        } catch (error) {
+          console.error('Error initializing Swiper:', error);
+        }
+      }, []);
+
+      return (
+        <section id="الفروع" className="py-20 fade-in">
+          <div className="container">
+            <h2 className="section-title">فروع الجمعية</h2>
+            <div className="branches-swiper relative">
+              <div className="swiper-wrapper">
+                {branches.map((branch, index) => (
+                  <div key={index} className="swiper-slide">
+                    <div className="branch-card">
+                      <img src={branch.image} alt={`صورة ${branch.name}`} className="branch-image" loading="lazy" />
+                      <h3 className="text-xl font-bold">{branch.name}</h3>
+                      <p className="text-gray-600 mt-2">{branch.description}</p>
+                      <a href={branch.facebook} target="_blank" rel="noopener noreferrer" className="btn-primary mt-3">تصفح الفرع</a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="swiper-pagination"></div>
+              <div className="swiper-button-next"></div>
+              <div className="swiper-button-prev"></div>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // Departments Section Component
+    const DepartmentsSection = () => {
+      const departments = [
+        { name: 'قسم الإجازة', description: 'تمكين الطلاب من الحصول على إجازات في القراءات.' },
+        { name: 'قسم التفسير والتدبر', description: 'دراسة معاني القرآن وتدبر آياته.' },
+        { name: 'قسم التميز', description: 'أقسام تثبيت وتكرار القرآن الكريم' },
+        { name: 'قسم تخريج المعلمين', description: 'إعداد معلمين مؤهلين لتعليم القرآن.' },
+        { name: 'قسم العلوم الشرعية', description: 'تعليم الفقه والحديث والعقيدة.' },
+        { name: 'القسم التربوي', description: 'تعزيز القيم التربوية والأخلاقية.' },
+        { name: 'قسم المتون', description: 'دراسة مختلف المتون الشرعية.' },
+        { name: 'قسم الضبط والإتقان', description: 'تحسين ضبط التلاوة والحفظ.' },
+      ];
+
+      return (
+        <section id="الأقسام" className="py-20 fade-in">
+          <div className="container">
+            <h2 className="section-title">الأقسام التطويرية</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {departments.map((dept, index) => (
+                <div key={index} className="card">
+                  <h3 className="text-lg font-bold">{dept.name}</h3>
+                  <p className="text-gray-600 mt-3">{dept.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // Subjects Section Component (Updated with specified images)
+    const SubjectsSection = () => {
+      const [selectedSubject, setSelectedSubject] = useState(null);
+      const [currentIndex, setCurrentIndex] = useState(0);
+
+      const subjects = [
+        { name: 'حفظ القرآن الكريم', description: 'في البداية، نبدأ بحفظ القرآن الكريم مع الطلاب بأساليب دقيقة، ثم نحدد مستواهم، ونضع خطة حفظ مناسبة لكل طالب، ونتابع تقدمهم بشكل دوري.', image: '1.png' },
+        { name: 'أحكام التجويد', description: 'ثم ننتقل لتعليم أحكام التجويد، حيث نركز على إتقان التلاوة الصحيحة، ونصحح الأخطاء، ونضمن النطق السليم للحروف والقواعد.', image: '2.png' },
+        { name: 'الأربعون النووية', description: 'بعد ذلك، ندرس الأربعون النووية للإمام النووي، حيث نشرح الأحاديث النبوية الأساسية، ونربطها بالواقع العملي، ونحفز الطلاب على تطبيقها.', image: '3.png' },
+        { name: 'أذكار حصن المسلم', description: 'أخيرًا، نعلم الطلاب أذكار حصن المسلم، مع التركيز على الأذكار اليومية، وأهميتها في الحياة، وكيفية استخدامها في المناسبات المختلفة.', image: '5.png' },
+      ];
+
+      useEffect(() => {
+        if (!selectedSubject) {
+          setSelectedSubject(subjects[0]);
+        }
+
+        const interval = setInterval(() => {
+          setCurrentIndex((prevIndex) => {
+            const nextIndex = (prevIndex + 1) % subjects.length;
+            setSelectedSubject(subjects[nextIndex]);
+            return nextIndex;
+          });
+        }, 5000);
+
+        return () => clearInterval(interval);
+      }, []);
+
+      return (
+        <section id="المواد" className="py-20 fade-in">
+          <div className="container">
+            <h2 className="section-title">منهجية التعليم</h2>
+            <p className="text-center text-gray-600 mb-8">تعليم متكامل: نهدف إلى بناء جيل قرآني متميز</p>
+            <div className="flex flex-col md:flex-row gap-8">
+              <div className={`md:w-1/3 subjects-container active-${currentIndex}`}>
+                {subjects.map((subject, index) => (
+                  <div
+                    key={index}
+                    className={`subject-item ${selectedSubject === subject ? 'active' : ''}`}
+                    onClick={() => {
+                      setSelectedSubject(subject);
+                      setCurrentIndex(index);
+                    }}
+                  >
+                    <div className="subject-number">{index + 1}</div>
+                    <h3>{subject.name}</h3>
+                  </div>
+                ))}
+              </div>
+              <div className="md:w-2/3">
+                {selectedSubject && (
+                  <div className="subject-description-card">
+                    <img src={selectedSubject.image} alt={`كتاب ${selectedSubject.name}`} loading="lazy" />
+                    <div>
+                      <h3 className="text-xl font-bold mb-2">{selectedSubject.name}</h3>
+                      <p>{selectedSubject.description}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // Statistics Section Component
+    const StatCard = ({ icon, targetValue, label, delay }) => {
+      const [count, setCount] = useState(0);
+
+      useEffect(() => {
+        let start = 0;
+        const end = parseInt(targetValue);
+        const duration = 2000;
+        const increment = end / (duration / 50);
+
+        const counter = setInterval(() => {
+          start += increment;
+          if (start >= end) {
+            setCount(end);
+            clearInterval(counter);
+          } else {
+            setCount(Math.ceil(start));
+          }
+        }, 50);
+
+        return () => clearInterval(counter);
+      }, [targetValue]);
+
+      return (
+        <div className="stat-card" style={{ '--delay': delay }}>
+          <i className={`fas ${icon}`}></i>
+          <h3>{count}</h3>
+          <p>{label}</p>
+        </div>
+      );
+    };
+
+    const StatisticsSection = () => {
+      const stats = [
+        { icon: 'fa-user-graduate', value: '1500', label: 'طلاب', delay: 0 },
+        { icon: 'fa-chalkboard-teacher', value: '60', label: 'أساتذة', delay: 1 },
+        { icon: 'fa-user-tie', value: '8', label: 'إداريون', delay: 2 },
+        { icon: 'fa-map-marker-alt', value: '10', label: 'فروع', delay: 3 },
+      ];
+
+      return (
+        <section id="الإحصائيات" className="py-20 fade-in">
+          <div className="container">
+            <h2 className="section-title">إحصائيات المركز</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {stats.map((stat, index) => (
+                <StatCard
+                  key={index}
+                  icon={stat.icon}
+                  targetValue={stat.value}
+                  label={stat.label}
+                  delay={stat.delay}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // Testimonials Section Component (Updated with new testimonials)
+    const TestimonialsSection = () => {
+      const testimonials = [
+        { name: 'كبوية أصيل', role: 'طالبة', image: '11.jpg', feedback: 'أنا أحب مركز الماهر لأنه علمني كيف أقرأ القرآن بشكل صحيح. المعلمون لطفاء ويساعدونني دائمًا. أشعر بالسعادة عندما أذهب إلى الدروس.' },
+        { name: 'بن عزوز عبد المؤمن', role: 'طالب', image: '11.jpg', feedback: 'مركز الماهر ساعدني كثيرًا في تحسين تلاوتي وحفظي للقرآن. الأسلوب سهل وجميل، والمدرسون يشجعوننا دائمًا. كما أن الجو في المركز مريح ومحفز.' },
+        { name: 'كمال عزي', role: 'خاتم', image: '11.jpg', feedback: 'بفضل الله ثم مركز الماهر، تمكنت من إتمام حفظ القرآن الكريم. لديهم برامج قوية ومناهج منظمة تناسب جميع المستويات. أنصح كل من يريد إتقان القرآن بالالتحاق بهذا المركز.' },
+        { name: 'منار لعايب', role: 'طالبة', image: '12.jpeg', feedback: 'مركز الماهر يتميز بالاهتمام الفردي بكل طالب، والتصحيح المستمر للتلاوة. كما أنهم يقيمون مسابقات تحفيزية وجوائز تشجيعية، مما يجعل التعلم ممتعًا ومفيدًا.' },
+        { name: 'زاوي شهد نور الهدى', role: 'طالبة', image: '12.jpeg', feedback: 'البيئة في مركز الماهر روحانية ومليئة بالهمة. أشعر أنني جزء من عائلة كبيرة تهتم بي وبمستواي.' },
+      ];
+
+      useEffect(() => {
+        try {
+          if (!window.Swiper) throw new Error('Swiper library not loaded.');
+          const swiper = new Swiper('.testimonials-swiper', {
+            loop: true,
+            slidesPerView: 3,
+            centeredSlides: true,
+            spaceBetween: 20,
+            autoplay: { delay: 5000 },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            breakpoints: {
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+              },
+              0: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
+            },
+          });
+        } catch (error) {
+          console.error('Error initializing Swiper:', error);
+        }
+      }, []);
+
+      return (
+        <section id="آراء_الطلاب" className="py-20 fade-in">
+          <div className="container">
+            <h2 className="section-title">ماذا يقولون عنا؟</h2>
+            <div className="testimonials-swiper relative">
+              <div className="swiper-wrapper">
+                {testimonials.map((testimonial, index) => (
+                  <div key={index} className="swiper-slide">
+                    <div className="testimonial-card">
+                      <img src={testimonial.image || 'https://via.placeholder.com/80'} alt={`صورة ${testimonial.name}`} loading="lazy" />
+                      <p>{testimonial.feedback}</p>
+                      <h4>{testimonial.name} - {testimonial.role}</h4>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="swiper-pagination"></div>
+              <div className="swiper-button-next"></div>
+              <div className="swiper-button-prev"></div>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // Events Section Component (Updated with new events)
+    const EventsSection = () => {
+      const events = [
+        { title: 'الحفل الختامي', date: 'نهاية شهر جويلية', description: 'حفل ختامي لتكريم الطلاب المتفوقين واختتام العام الدراسي.' },
+        { title: 'الامتحان السنوي الشامل', date: 'نهاية شهر جوان', description: 'امتحان شامل لتقييم مستوى الطلاب في الحفظ والتجويد.' },
+        { title: 'مسابقة نخبة الحفاظ لسرد القرآن الكريم كاملا', date: 'منتصف شهر جويلية', description: 'مسابقة للطلاب المتميزين في سرد القرآن الكريم كاملًا.' },
+      ];
+
+      return (
+        <section id="الأحداث_القادمة" className="py-20 fade-in">
+          <div className="container">
+            <h2 className="section-title">الأحداث القادمة</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {events.map((event, index) => (
+                <div key={index} className="event-card">
+                  <h4>{event.title}</h4>
+                  <p className="event-date">{event.date}</p>
+                  <p>{event.description}</p>
+                  <a href="#تواصل_معنا" className="btn-primary">سجل الآن</a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // Contact Section Component
+    const ContactSection = () => {
+      return (
+        <section id="تواصل_معنا" className="py-20 fade-in">
+          <div className="container">
+            <h2 className="section-title">تواصل معنا</h2>
+            <div className="flex flex-col md:flex-row gap-8">
+              <div className="md:w-1/2 card">
+                <h3 className="text-xl font-bold mb-4">أرسل رسالتك</h3>
+                <div>
+                  <div className="mb-4">
+                    <label className="block text-gray-700 mb-2" htmlFor="name">الاسم</label>
+                    <input type="text" id="name" className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="أدخل اسمك" />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-gray-700 mb-2" htmlFor="email">البريد الإلكتروني</label>
+                    <input type="email" id="email" className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="أدخل بريدك الإلكتروني" />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-gray-700 mb-2" htmlFor="message">رسالتك</label>
+                    <textarea id="message" className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="4" placeholder="اكتب رسالتك هنا"></textarea>
+                  </div>
+                  <button type="button" className="btn-primary w-full">إرسال</button>
+                </div>
+              </div>
+              <div className="md:w-1/2">
+                <h3 className="text-xl font-bold mb-4">معلومات التواصل</h3>
+                <p className="text-gray-600 mb-2"><strong>العنوان:</strong> حي الوحدة رقم 2 (أولاد سيدي إبراهيم)، خلف بنك السلام، المسيلة، الجزائر</p>
+                <p className="text-gray-600 mb-2"><strong>الهاتف:</strong> 0676169775</p>
+                <p className="text-gray-600 mb-4"><strong>البريد الإلكتروني:</strong> maher.belquran28@gmail.com</p>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3248.771432432432!2d4.5032957!3d35.7055517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sM%27Sila%2C%20Algeria!5e0!3m2!1sen!2sus!4v1697582972987!5m2!1sen!2sus"
+                  width="100%"
+                  height="300"
+                  style={{ border: 0, borderRadius: '12px' }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  title="خريطة موقع مركز الماهر بالقرآن في المسيلة"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // Footer Component
+    const Footer = () => {
+      return (
+        <footer className="footer">
+          <div className="container">
+            <h4>جمعية الماهر للعلوم والتربية - مركز الماهر بالقرآن</h4>
+            <p>مركز تعليمي يهدف إلى نشر تعليم القرآن الكريم وعلومه في ولاية المسيلة.</p>
+            <p>الهاتف: 0676169775 | البريد: maher.belquran28@gmail.com</p>
+            <div className="mt-4">
+              <a href="https://www.facebook.com/Almaher.Bel.Qurann/?locale=ar_AR" aria-label="فيسبوك"><i className="fab fa-facebook-f"></i></a>
+              <a href="https://www.facebook.com/Almaher.Bel.Qurann/?locale=ar_AR" aria-label="تويتر"><i className="fab fa-twitter"></i></a>
+              <a href="https://www.instagram.com/elmaher_center/" aria-label="إنستغرام"><i className="fab fa-instagram"></i></a>
+              <a href="https://www.facebook.com/Almaher.Bel.Qurann/?locale=ar_AR" aria-label="يوتيوب"><i className="fab fa-youtube"></i></a>
+            </div>
+            <p className="mt-4">© 2025 جمعية الماهر للعلوم والتربية - مركز الماهر بالقرآن. جميع الحقوق محفوظة.</p>
+          </div>
+        </footer>
+      );
+    };
+
+    // Main App Component
+    const App = () => {
+      const [isVisible, setIsVisible] = useState(false);
+
+      const toggleVisibility = () => {
+        if (window.pageYOffset > 300) {
+          setIsVisible(true);
+        } else {
+          setIsVisible(false);
+        }
+      };
+
+      const scrollToTop = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      };
+
+      useEffect(() => {
+        window.addEventListener('scroll', toggleVisibility);
+
+        try {
+          document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+              e.preventDefault();
+              const target = document.querySelector(this.getAttribute('href'));
+              if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+              }
+            });
+          });
+          const sections = document.querySelectorAll('.fade-in');
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+              }
+            });
+          }, { threshold: 0.1 });
+          sections.forEach(section => observer.observe(section));
+        } catch (error) {
+          console.error('Error setting up smooth scrolling or animations:', error);
+        }
+
+        return () => {
+          window.removeEventListener('scroll', toggleVisibility);
+        };
+      }, []);
+
+      return (
+        <div>
+          <Navbar />
+          <LandingSection />
+          <WelcomeSection />
+          <AboutSection />
+          <BranchesSection />
+          <DepartmentsSection />
+          <SubjectsSection />
+          <StatisticsSection />
+          <TestimonialsSection />
+          <EventsSection />
+          <ContactSection />
+          <Footer />
+          <div
+            className={`back-to-top ${isVisible ? 'visible' : ''}`}
+            onClick={scrollToTop}
+            aria-label="العودة إلى الأعلى"
+          >
+            <i className="fas fa-arrow-up"></i>
+          </div>
+        </div>
+      );
+    };
+
+    // Render the app
+    try {
+      if (!window.React || !window.ReactDOM || !window.Babel) {
+        throw new Error('Required libraries not loaded.');
+      }
+      document.getElementById('error-message').style.display = 'none';
+      ReactDOM.render(<App />, document.getElementById('root'));
+    } catch (error) {
+      console.error('Error rendering React app:', error);
+      document.getElementById('error-message').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
