@@ -705,104 +705,406 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .navbar {
-        width: 95%;
-      }
+   /* Responsive Design */
+@media (max-width: 1200px) {
+  .container {
+    max-width: 960px;
+  }
 
-      .hamburger {
-        display: block;
-      }
+  .landing-title {
+    font-size: 2.5rem;
+  }
 
-      .nav-menu {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        right: 0;
-        background: white;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        padding: 1rem;
-        border-radius: 0 0 20px 20px;
-      }
+  .landing-logo {
+    width: 400px;
+    height: 400px;
+  }
 
-      .nav-menu.active {
-        display: flex;
-      }
+  .welcome-swiper .swiper-slide img,
+  .welcome-swiper .swiper-slide video {
+    height: 350px;
+  }
 
-      .nav-link {
-        padding: 0.75rem;
-        text-align: center;
-        width: 100%;
-      }
+  .section-title {
+    font-size: 2.2rem;
+  }
+}
 
-      .landing-title {
-        font-size: 2rem;
-      }
+@media (max-width: 992px) {
+  .container {
+    max-width: 720px;
+  }
 
-      .landing-subtitle {
-        font-size: 1rem;
-      }
+  .navbar {
+    width: 95%;
+    top: 1rem;
+  }
 
-      .landing-logo {
-        width: 200px;
-        height: 200px;
-      }
+  .landing-section {
+    flex-direction: column;
+    text-align: center;
+  }
 
-      .welcome-swiper .swiper-slide img,
-      .welcome-swiper .swiper-slide video {
-        height: 300px;
-      }
+  .landing-title {
+    font-size: 2rem;
+  }
 
-      .branch-card,
-      .testimonial-card {
-        width: 100%;
-        max-width: 300px;
-      }
+  .landing-subtitle {
+    font-size: 1.1rem;
+  }
 
-      .branches-swiper .swiper-slide-prev,
-      .branches-swiper .swiper-slide-next,
-      .testimonials-swiper .swiper-slide-prev,
-      .testimonials-swiper .swiper-slide-next {
-        display: none;
-      }
+  .landing-logo {
+    width: 300px;
+    height: 300px;
+  }
 
-      .branches-swiper .swiper-slide,
-      .testimonials-swiper .swiper-slide {
-        opacity: 1;
-      }
+  .welcome-swiper .swiper-slide img,
+  .welcome-swiper .swiper-slide video {
+    height: 300px;
+  }
 
-      .stat-card {
-        padding: 1rem;
-      }
+  .branches-swiper .swiper-slide,
+  .testimonials-swiper .swiper-slide {
+    opacity: 1;
+  }
 
-      .subject-description-card {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+  .branches-swiper .swiper-slide-prev,
+  .branches-swiper .swiper-slide-next,
+  .testimonials-swiper .swiper-slide-prev,
+  .testimonials-swiper .swiper-slide-next {
+    transform: scale(0.9);
+    filter: none;
+  }
 
-      .subject-description-card img {
-        width: 120px;
-        height: 120px;
-      }
+  .subject-description-card {
+    flex-direction: column;
+    align-items: center;
+  }
 
-      .footer .grid {
-        grid-template-columns: 1fr;
-      }
+  .subject-description-card img {
+    width: 130px;
+    height: 130px;
+  }
 
-      .back-to-top {
-        bottom: 1rem;
-        left: 1rem;
-        width: 40px;
-        height: 40px;
-      }
+  .stat-card {
+    padding: 1.2rem;
+  }
 
-      .back-to-top i {
-        font-size: 1.2rem;
-      }
-    }
+  .footer .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 540px;
+    padding: 0 1rem;
+  }
+
+  .navbar {
+    width: 100%;
+    border-radius: 0;
+    top: 0;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .nav-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .nav-menu.active {
+    display: flex;
+  }
+
+  .nav-link {
+    padding: 0.75rem;
+    text-align: center;
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .landing-title {
+    font-size: 1.8rem;
+  }
+
+  .landing-subtitle {
+    font-size: 1rem;
+  }
+
+  .landing-logo {
+    width: 250px;
+    height: 250px;
+  }
+
+  .welcome-swiper .swiper-slide img,
+  .welcome-swiper .swiper-slide video {
+    height: 250px;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .branch-card,
+  .testimonial-card {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .branches-swiper .swiper-slide-prev,
+  .branches-swiper .swiper-slide-next,
+  .testimonials-swiper .swiper-slide-prev,
+  .testimonials-swiper .swiper-slide-next {
+    display: none;
+  }
+
+  .stat-card h3 {
+    font-size: 1.5rem;
+  }
+
+  .stat-card p {
+    font-size: 0.9rem;
+  }
+
+  .subject-item h3 {
+    font-size: 1.1rem;
+  }
+
+  .subject-description-card img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .event-card h4 {
+    font-size: 1.1rem;
+  }
+
+  .btn-primary {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .footer .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .back-to-top {
+    bottom: 1.5rem;
+    left: 1.5rem;
+    width: 45px;
+    height: 45px;
+  }
+
+  .back-to-top i {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    max-width: 100%;
+    padding: 0 0.75rem;
+  }
+
+  .landing-title {
+    font-size: 1.5rem;
+  }
+
+  .landing-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .landing-logo {
+    width: 200px;
+    height: 200px;
+  }
+
+  .welcome-swiper .swiper-slide img,
+  .welcome-swiper .swiper-slide video {
+    height: 200px;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .section-title::after {
+    width: 80px;
+  }
+
+  .branch-card,
+  .testimonial-card {
+    padding: 1rem;
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  .stat-card i {
+    font-size: 2rem;
+  }
+
+  .stat-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .subject-item {
+    padding: 0.5rem;
+  }
+
+  .subject-number {
+    width: 1.8rem;
+    height: 1.8rem;
+    font-size: 0.9rem;
+  }
+
+  .subject-item h3 {
+    font-size: 1rem;
+  }
+
+  .subject-description-card {
+    padding: 1rem;
+  }
+
+  .subject-description-card img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .subject-description-card p {
+    font-size: 0.95rem;
+  }
+
+  .event-card {
+    padding: 1rem;
+  }
+
+  .event-card h4 {
+    font-size: 1rem;
+  }
+
+  .event-date {
+    font-size: 0.9rem;
+  }
+
+  .btn-primary {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .footer h4 {
+    font-size: 1.1rem;
+  }
+
+  .footer p {
+    font-size: 0.9rem;
+  }
+
+  .footer i {
+    font-size: 1.3rem;
+    margin: 0 0.5rem;
+  }
+
+  .back-to-top {
+    bottom: 1rem;
+    left: 1rem;
+    width: 40px;
+    height: 40px;
+  }
+
+  .back-to-top i {
+    font-size: 1.2rem;
+  }
+
+  .contact-section iframe {
+    height: 250px;
+  }
+}
+/* تحسين أداء Swiper */
+.branches-swiper,
+.testimonials-swiper,
+.welcome-swiper {
+  overflow: hidden;
+}
+
+/* جعل الأزرار أكثر سهولة للنقر */
+.btn-primary,
+.nav-link {
+  touch-action: manipulation; /* تحسين التفاعل على اللمس */
+  -webkit-tap-highlight-color: transparent; /* إزالة تأثير النقر على الهواتف */
+}
+
+/* تحسين الصور */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* تحسين النصوص لتكون مقروءة */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ضمان عدم التداخل في النصوص */
+h1, h2, h3, p {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+/* تحسين انتقال السلايدر */
+.swiper-slide {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* تحسينات إضافية للهواتف الصغيرة جدًا (مثل iPhone SE) */
+@media (max-width: 360px) {
+  .landing-title {
+    font-size: 1.3rem;
+  }
+
+  .landing-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .landing-logo {
+    width: 180px;
+    height: 180px;
+  }
+
+  .section-title {
+    font-size: 1.3rem;
+  }
+
+  .btn-primary {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.8rem;
+  }
+
+  .subject-description-card img {
+    width: 90px;
+    height: 90px;
+  }
+
+  .footer p {
+    font-size: 0.85rem;
+  }
+}
   </style>
 </head>
 <body>
