@@ -1024,7 +1024,7 @@
       }
 
       .btn-primary {
-        padding: 0.4rem 0.8rem;
+ assent: 0.4rem 0.8rem;
         font-size: 0.85rem;
       }
 
@@ -1108,12 +1108,17 @@
       display: block;
     }
 
-    /* رسالة خطأ تحميل النموذج */
+    /* رسائل تحميل وخطأ */
+    .logo-loading,
     .logo-error {
-      color: #EF4444;
+      color: #4B5563;
       text-align: center;
       font-size: 1.2rem;
       margin-top: 1rem;
+    }
+
+    .logo-error {
+      color: #EF4444;
     }
   </style>
 </head>
@@ -1134,9 +1139,12 @@
 
     const ThreeLogo = ({ className }) => {
       const containerRef = React.useRef();
-      const [error, setError] = useState(null);
+      const [status, setStatus] = useState('loading'); // loading, success, error
+      const [errorMessage, setErrorMessage] = useState('');
 
       useEffect(() => {
+        let isMounted = true;
+
         try {
           const scene = new THREE.Scene();
           const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
@@ -1155,8 +1163,9 @@
           const loader = new THREE.GLTFLoader();
           let model;
           loader.load(
-            'logo.glb', // استخدام logo.glb بدلاً من logo.gltf
+            'logo.glb', // تأكد من أن الملف موجود في المجلد الرئيسي
             (gltf) => {
+              if (!isMounted) return;
               model = gltf.scene;
               console.log('تم تحميل النموذج بنجاح:', model);
               scene.add(model);
@@ -1170,18 +1179,21 @@
               model.position.sub(center.multiplyScalar(scale));
 
               camera.position.z = size * scale * 2;
-              setError(null); // إزالة رسالة الخطأ إذا نجح التحميل
+              setStatus('success');
             },
             (progress) => {
               console.log('تقدم التحميل:', (progress.loaded / progress.total * 100) + '%');
             },
             (error) => {
+              if (!isMounted) return;
               console.error('خطأ في تحميل النموذج:', error);
-              setError('فشل تحميل الشعار ثلاثي الأبعاد. تأكد من وجود الملف.');
+              setStatus('error');
+              setErrorMessage('فشل تحميل الشعار ثلاثي الأبعاد. تأكد من وجود ملف logo.glb في المجلد الرئيسي.');
             }
           );
 
           const animate = () => {
+            if (!isMounted) return;
             requestAnimationFrame(animate);
             if (model) {
               model.rotation.y += 0.005;
@@ -1200,20 +1212,24 @@
           window.addEventListener('resize', handleResize);
 
           return () => {
+            isMounted = false;
             window.removeEventListener('resize', handleResize);
             if (container.contains(renderer.domElement)) {
               container.removeChild(renderer.domElement);
             }
           };
         } catch (error) {
+          if (!isMounted) return;
           console.error('خطأ في تهيئة Three.js:', error);
-          setError('حدث خطأ أثناء تحميل الشعار ثلاثي الأبعاد.');
+          setStatus('error');
+          setErrorMessage('حدث خطأ أثناء تهيئة الشعار ثلاثي الأبعاد.');
         }
       }, []);
 
       return (
         <div className={className} ref={containerRef}>
-          {error && <div className="logo-error">{error}</div>}
+          {status === 'loading' && <div className="logo-loading">جارٍ تحميل الشعار...</div>}
+          {status === 'error' && <div className="logo-error">{errorMessage}</div>}
         </div>
       );
     };
@@ -1709,7 +1725,7 @@
                 <p className="text-gray-600 mb-2"><strong>الهاتف:</strong> 0676169775</p>
                 <p className="text-gray-600 mb-4"><strong>البريد الإلكتروني:</strong> maher.belquran28@gmail.com</p>
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3248.771432432432!2d4.5032957!3d35.7055517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sM%27Sila%2C%20Algeria!5e0!3m2!1sen!2sus!4v1697582972987!5m2!1sen!2sus"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3248.771432432432!2d4.5032957!3d35.7055517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sM%27Sila%2C%20Algeria!5e0!3m2!1sen!2
                   width="100%"
                   height="300"
                   style={{ border: 0, borderRadius: '12px' }}
