@@ -6,6 +6,8 @@
   <meta name="description" content="مركز الماهر بالقرآن لتعليم القرآن الكريم وعلومه في ولاية المسيلة، الجزائر، يهدف إلى إنشاء جيل قرآني متدبر وعامل بكتاب الله">
   <meta name="keywords" content="تعليم القرآن, حفظ القرآن, تجويد, مركز الماهر, المسيلة, الجزائر">
   <title>مركز الماهر بالقرآن</title>
+  <!-- Three.js and GLTFLoader -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
   <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -15,9 +17,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Google Fonts for Arabic Typography -->
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-  <!-- Three.js and FBXLoader -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/FBXLoader.js"></script>
   <style>
     :root {
       --primary: #1E3A8A; /* أزرق داكن */
@@ -600,7 +599,7 @@
       color: var(--primary);
       background: rgba(255, 255, 255, 0.8);
       border-radius: 50%;
-      width: 3px;
+      width: 40px;
       height: 40px;
       display: flex;
       align-items: center;
@@ -1108,6 +1107,14 @@
       height: auto;
       display: block;
     }
+
+    /* رسالة خطأ تحميل النموذج */
+    .logo-error {
+      color: #EF4444;
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -1126,75 +1133,90 @@
     const { useEffect, useState } = React;
 
     const ThreeLogo = ({ className }) => {
-  const containerRef = React.useRef();
+      const containerRef = React.useRef();
+      const [error, setError] = useState(null);
 
-  useEffect(() => {
-    try {
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      useEffect(() => {
+        try {
+          const scene = new THREE.Scene();
+          const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+          const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 
-      const container = containerRef.current;
-      renderer.setSize(container.clientWidth, container.clientHeight);
-      container.appendChild(renderer.domElement);
+          const container = containerRef.current;
+          renderer.setSize(container.clientWidth, container.clientHeight);
+          container.appendChild(renderer.domElement);
 
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-      scene.add(ambientLight);
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-      directionalLight.position.set(0, 1, 1);
-      scene.add(directionalLight);
+          const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+          scene.add(ambientLight);
+          const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+          directionalLight.position.set(0, 1, 1);
+          scene.add(directionalLight);
 
-      const loader = new THREE.GLTFLoader();
-      let model;
-      loader.load('logo.gltf', (gltf) => {
-        model = gltf.scene;
-        console.log('تم تحميل النموذج بنجاح:', model);
-        scene.add(model);
+          const loader = new THREE.GLTFLoader();
+          let model;
+          loader.load(
+            'logo.glb', // استخدام logo.glb بدلاً من logo.gltf
+            (gltf) => {
+              model = gltf.scene;
+              console.log('تم تحميل النموذج بنجاح:', model);
+              scene.add(model);
 
-        const box = new THREE.Box3().setFromObject(model);
-        const size = box.getSize(new THREE.Vector3()).length();
-        const scale = 50 / size;
-        model.scale.set(scale, scale, scale);
+              const box = new THREE.Box3().setFromObject(model);
+              const size = box.getSize(new THREE.Vector3()).length();
+              const scale = 50 / size;
+              model.scale.set(scale, scale, scale);
 
-        const center = box.getCenter(new THREE.Vector3());
-        model.position.sub(center.multiplyScalar(scale));
+              const center = box.getCenter(new THREE.Vector3());
+              model.position.sub(center.multiplyScalar(scale));
 
-        camera.position.z = size * scale * 2;
-      }, (progress) => {
-        console.log('تقدم التحميل:', (progress.loaded / progress.total * 100) + '%');
-      }, (error) => {
-        console.error('خطأ في تحميل النموذج:', error);
-      });
+              camera.position.z = size * scale * 2;
+              setError(null); // إزالة رسالة الخطأ إذا نجح التحميل
+            },
+            (progress) => {
+              console.log('تقدم التحميل:', (progress.loaded / progress.total * 100) + '%');
+            },
+            (error) => {
+              console.error('خطأ في تحميل النموذج:', error);
+              setError('فشل تحميل الشعار ثلاثي الأبعاد. تأكد من وجود الملف.');
+            }
+          );
 
-      const animate = () => {
-        requestAnimationFrame(animate);
-        if (model) {
-          model.rotation.y += 0.005;
+          const animate = () => {
+            requestAnimationFrame(animate);
+            if (model) {
+              model.rotation.y += 0.005;
+            }
+            renderer.render(scene, camera);
+          };
+          animate();
+
+          const handleResize = () => {
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+          };
+          window.addEventListener('resize', handleResize);
+
+          return () => {
+            window.removeEventListener('resize', handleResize);
+            if (container.contains(renderer.domElement)) {
+              container.removeChild(renderer.domElement);
+            }
+          };
+        } catch (error) {
+          console.error('خطأ في تهيئة Three.js:', error);
+          setError('حدث خطأ أثناء تحميل الشعار ثلاثي الأبعاد.');
         }
-        renderer.render(scene, camera);
-      };
-      animate();
+      }, []);
 
-      const handleResize = () => {
-        const width = container.clientWidth;
-        const height = container.clientHeight;
-        renderer.setSize(width, height);
-        camera.aspect = width / height;
-        camera.updateProjectionMatrix();
-      };
-      window.addEventListener('resize', handleResize);
-
-      return () => {
-        window.removeEventListener('resize', handleResize);
-        container.removeChild(renderer.domElement);
-      };
-    } catch (error) {
-      console.error('خطأ في تهيئة Three.js:', error);
-    }
-  }, []);
-
-  return <div className={className} ref={containerRef}></div>;
-};
+      return (
+        <div className={className} ref={containerRef}>
+          {error && <div className="logo-error">{error}</div>}
+        </div>
+      );
+    };
 
     // Navbar Component
     const Navbar = () => {
@@ -1211,7 +1233,7 @@
               <img src="logo1.png" alt="شعار مركز الماهر بالقرآن لتعليم القرآن الكريم" className="h-20" loading="lazy" />
             </div>
             <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-              {['الرئيسية', 'عن_المركز', 'الفروع', 'الأقسام', 'المواد', 'الإحصائيات', 'آراء_الطلاب', 'الأحداث_القادمة', ].map((item) => (
+              {['الرئيسية', 'عن_المركز', 'الفروع', 'الأقسام', 'المواد', 'الإحصائيات', 'آراء_الطلاب', 'الأحداث_القادمة'].map((item) => (
                 <li key={item}>
                   <a href={`#${item}`} className="nav-link" onClick={() => setIsMenuOpen(false)}>
                     {item.replace('_', ' ')}
