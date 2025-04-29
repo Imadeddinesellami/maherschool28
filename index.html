@@ -185,8 +185,8 @@
     }
 
     .landing-logo {
-      width: 800px;
-      height: 800px;
+      width: 500px;
+      height: 500px;
       display: block;
       position: relative;
     }
@@ -1181,7 +1181,7 @@ scene.add(directionalLight);
               model.position.sub(center.multiplyScalar(scale));
 
               // تعديل موقع الكاميرا لتتناسب مع الحجم الجديد
-              camera.position.z = size * scale * 10; // زيادة مسافة الكاميرا
+              camera.position.z = size * scale * 30; // زيادة مسافة الكاميرا
               setStatus('success');
             },
             (progress) => {
