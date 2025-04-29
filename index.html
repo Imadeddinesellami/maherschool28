@@ -1155,8 +1155,11 @@
           container.appendChild(renderer.domElement);
 
           // إضافة إضاءة محيطة بسيطة
-          const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // إضاءة بيضاء بشدة منخفضة
-          scene.add(ambientLight);
+          const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+scene.add(ambientLight);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+directionalLight.position.set(0, 1, 1);
+scene.add(directionalLight);
 
           const loader = new THREE.GLTFLoader();
           let model;
@@ -1171,14 +1174,14 @@
               // تكبير النموذج
               const box = new THREE.Box3().setFromObject(model);
               const size = box.getSize(new THREE.Vector3()).length();
-              const scale = (50 / size) * 3; // زيادة الحجم بنسبة 3x
+              const scale = (50 / size) * 10; // زيادة الحجم بنسبة 3x
               model.scale.set(scale, scale, scale);
 
               const center = box.getCenter(new THREE.Vector3());
               model.position.sub(center.multiplyScalar(scale));
 
               // تعديل موقع الكاميرا لتتناسب مع الحجم الجديد
-              camera.position.z = size * scale * 3; // زيادة مسافة الكاميرا
+              camera.position.z = size * scale * 5; // زيادة مسافة الكاميرا
               setStatus('success');
             },
             (progress) => {
