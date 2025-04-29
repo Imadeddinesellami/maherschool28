@@ -1174,14 +1174,14 @@ scene.add(directionalLight);
               // تكبير النموذج
               const box = new THREE.Box3().setFromObject(model);
               const size = box.getSize(new THREE.Vector3()).length();
-              const scale = (50 / size) * 20; // زيادة الحجم بنسبة 3x
+              const scale = (50 / size) * 5; // زيادة الحجم بنسبة 3x
               model.scale.set(scale, scale, scale);
 
               const center = box.getCenter(new THREE.Vector3());
               model.position.sub(center.multiplyScalar(scale));
 
               // تعديل موقع الكاميرا لتتناسب مع الحجم الجديد
-              camera.position.z = size * scale * 10; // زيادة مسافة الكاميرا
+            camera.position.z = 100; // قيمة ثابتة للكاميرا         
               setStatus('success');
             },
             (progress) => {
