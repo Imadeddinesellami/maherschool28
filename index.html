@@ -6,13 +6,16 @@
   <meta name="description" content="مركز الماهر بالقرآن لتعليم القرآن الكريم وعلومه في ولاية المسيلة، الجزائر، يهدف إلى إنشاء جيل قرآني متدبر وعامل بكتاب الله">
   <meta name="keywords" content="تعليم القرآن, حفظ القرآن, تجويد, مركز الماهر, المسيلة, الجزائر">
   <title>مركز الماهر بالقرآن</title>
+  <!-- Three.js and GLTFLoader -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
   <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css" />
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <!-- Google Fonts for Arabic Typography (Updated) -->
+  <!-- Google Fonts for Arabic Typography -->
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -30,7 +33,7 @@
     }
 
     body {
-      font-family: 'Amiri', serif; /* Updated main font to Amiri */
+      font-family: 'Amiri', serif;
       line-height: 1.6;
       color: var(--text);
       background: url('layer.png') repeat;
@@ -38,12 +41,23 @@
       background-attachment: fixed;
       overflow-x: hidden;
       background-color: var(--background);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     h1, h2, h3 {
-      font-family: 'Cairo', sans-serif; /* Updated headings font to Cairo */
+      font-family: 'Cairo', sans-serif;
       font-weight: 700;
       color: var(--primary);
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+    }
+
+    p {
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
     }
 
     .container {
@@ -52,9 +66,9 @@
       padding: 0 1.5rem;
     }
 
-    /* Navbar (Updated for better aesthetics) */
+    /* Navbar */
     .navbar {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.459), rgba(255, 255, 255, 0.295)); /* Gradient background */
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.459), rgba(255, 255, 255, 0.295));
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
       padding: 1rem 0;
       position: fixed;
@@ -63,24 +77,26 @@
       transform: translateX(-50%);
       width: 90%;
       z-index: 50;
-      border-radius: 30px; /* More rounded corners */
-      backdrop-filter: blur(10px); /* Glassmorphism effect */
+      border-radius: 30px;
+      backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .nav-link {
       color: var(--text);
-      font-family: 'Cairo', sans-serif; /* Updated font */
+      font-family: 'Cairo', sans-serif;
       font-weight: 600;
       padding: 0.5rem 1.2rem;
       border-radius: 8px;
       transition: all 0.3s ease;
       position: relative;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .nav-link:hover {
       color: var(--primary);
-      background: rgba(212, 175, 55, 0.2); /* Subtle hover background */
+      background: rgba(212, 175, 55, 0.2);
       transform: translateY(-2px);
     }
 
@@ -100,7 +116,6 @@
       width: 50%;
     }
 
-    /* Hamburger Menu */
     .hamburger {
       display: none;
       cursor: pointer;
@@ -118,17 +133,18 @@
       align-items: center;
     }
 
-    /* Buttons */
     .btn-primary {
       background: var(--primary);
       color: #FFFFFF;
       padding: 0.5rem 1.5rem;
       border-radius: 8px;
-      font-family: 'Cairo', sans-serif; /* Updated font */
+      font-family: 'Cairo', sans-serif;
       font-weight: 600;
       text-align: center;
       display: inline-block;
       transition: all 0.3s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .btn-primary:hover {
@@ -171,6 +187,13 @@
     .landing-logo {
       width: 500px;
       height: 500px;
+      display: block;
+      position: relative;
+    }
+
+    .landing-logo canvas {
+      width: 100%;
+      height: 100%;
       object-fit: contain;
       animation: shakeUpDown 2s infinite ease-in-out;
     }
@@ -705,406 +728,393 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-   /* Responsive Design */
-@media (max-width: 1200px) {
-  .container {
-    max-width: 960px;
-  }
-
-  .landing-title {
-    font-size: 2.5rem;
-  }
-
-  .landing-logo {
-    width: 400px;
-    height: 400px;
-  }
-
-  .welcome-swiper .swiper-slide img,
-  .welcome-swiper .swiper-slide video {
-    height: 350px;
-  }
-
-  .section-title {
-    font-size: 2.2rem;
-  }
-}
-
-@media (max-width: 992px) {
-  .container {
-    max-width: 720px;
-  }
-
-  .navbar {
-    width: 95%;
-    top: 1rem;
-  }
-
-  .landing-section {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .landing-title {
-    font-size: 2rem;
-  }
-
-  .landing-subtitle {
-    font-size: 1.1rem;
-  }
-
-  .landing-logo {
-    width: 300px;
-    height: 300px;
-  }
-
-  .welcome-swiper .swiper-slide img,
-  .welcome-swiper .swiper-slide video {
-    height: 300px;
-  }
-
-  .branches-swiper .swiper-slide,
-  .testimonials-swiper .swiper-slide {
-    opacity: 1;
-  }
-
-  .branches-swiper .swiper-slide-prev,
-  .branches-swiper .swiper-slide-next,
-  .testimonials-swiper .swiper-slide-prev,
-  .testimonials-swiper .swiper-slide-next {
-    transform: scale(0.9);
-    filter: none;
-  }
-
-  .subject-description-card {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .subject-description-card img {
-    width: 130px;
-    height: 130px;
-  }
-
-  .stat-card {
-    padding: 1.2rem;
-  }
-
-  .footer .grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .container {
-    max-width: 540px;
-    padding: 0 1rem;
-  }
-
-  .navbar {
-    width: 100%;
-    border-radius: 0;
-    top: 0;
-  }
-
-  .hamburger {
-    display: block;
-  }
-
-  .nav-menu {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 70px;
-    left: 0;
-    right: 0;
-    background: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    border-radius: 0 0 12px 12px;
-  }
-
-  .nav-menu.active {
-    display: flex;
-  }
-
-  .nav-link {
-    padding: 0.75rem;
-    text-align: center;
-    width: 100%;
-    font-size: 1rem;
-  }
-
-  .landing-title {
-    font-size: 1.8rem;
-  }
-
-  .landing-subtitle {
-    font-size: 1rem;
-  }
-
-  .landing-logo {
-    width: 250px;
-    height: 250px;
-  }
-
-  .welcome-swiper .swiper-slide img,
-  .welcome-swiper .swiper-slide video {
-    height: 250px;
-  }
-
-  .section-title {
-    font-size: 1.8rem;
-  }
-
-  .branch-card,
-  .testimonial-card {
-    width: 100%;
-    max-width: 280px;
-  }
-
-  .branches-swiper .swiper-slide-prev,
-  .branches-swiper .swiper-slide-next,
-  .testimonials-swiper .swiper-slide-prev,
-  .testimonials-swiper .swiper-slide-next {
-    display: none;
-  }
-
-  .stat-card h3 {
-    font-size: 1.5rem;
-  }
-
-  .stat-card p {
-    font-size: 0.9rem;
-  }
-
-  .subject-item h3 {
-    font-size: 1.1rem;
-  }
-
-  .subject-description-card img {
-    width: 120px;
-    height: 120px;
-  }
-
-  .event-card h4 {
-    font-size: 1.1rem;
-  }
-
-  .btn-primary {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-  }
-
-  .footer .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .back-to-top {
-    bottom: 1.5rem;
-    left: 1.5rem;
-    width: 45px;
-    height: 45px;
-  }
-
-  .back-to-top i {
-    font-size: 1.3rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .container {
-    max-width: 100%;
-    padding: 0 0.75rem;
-  }
-
-  .landing-title {
-    font-size: 1.5rem;
-  }
-
-  .landing-subtitle {
-    font-size: 0.9rem;
-  }
-
-  .landing-logo {
-    width: 200px;
-    height: 200px;
-  }
-
-  .welcome-swiper .swiper-slide img,
-  .welcome-swiper .swiper-slide video {
-    height: 200px;
-  }
-
-  .section-title {
-    font-size: 1.5rem;
-  }
-
-  .section-title::after {
-    width: 80px;
-  }
-
-  .branch-card,
-  .testimonial-card {
-    padding: 1rem;
-  }
-
-  .stat-card {
-    padding: 1rem;
-  }
-
-  .stat-card i {
-    font-size: 2rem;
-  }
-
-  .stat-card h3 {
-    font-size: 1.3rem;
-  }
-
-  .subject-item {
-    padding: 0.5rem;
-  }
-
-  .subject-number {
-    width: 1.8rem;
-    height: 1.8rem;
-    font-size: 0.9rem;
-  }
-
-  .subject-item h3 {
-    font-size: 1rem;
-  }
-
-  .subject-description-card {
-    padding: 1rem;
-  }
-
-  .subject-description-card img {
-    width: 100px;
-    height: 100px;
-  }
-
-  .subject-description-card p {
-    font-size: 0.95rem;
-  }
-
-  .event-card {
-    padding: 1rem;
-  }
-
-  .event-card h4 {
-    font-size: 1rem;
-  }
-
-  .event-date {
-    font-size: 0.9rem;
-  }
-
-  .btn-primary {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.85rem;
-  }
-
-  .footer h4 {
-    font-size: 1.1rem;
-  }
-
-  .footer p {
-    font-size: 0.9rem;
-  }
-
-  .footer i {
-    font-size: 1.3rem;
-    margin: 0 0.5rem;
-  }
-
-  .back-to-top {
-    bottom: 1rem;
-    left: 1rem;
-    width: 40px;
-    height: 40px;
-  }
-
-  .back-to-top i {
-    font-size: 1.2rem;
-  }
-
-  .contact-section iframe {
-    height: 250px;
-  }
-}
-/* تحسين أداء Swiper */
-.branches-swiper,
-.testimonials-swiper,
-.welcome-swiper {
-  overflow: hidden;
-}
-
-/* جعل الأزرار أكثر سهولة للنقر */
-.btn-primary,
-.nav-link {
-  touch-action: manipulation; /* تحسين التفاعل على اللمس */
-  -webkit-tap-highlight-color: transparent; /* إزالة تأثير النقر على الهواتف */
-}
-
-/* تحسين الصور */
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* تحسين النصوص لتكون مقروءة */
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* ضمان عدم التداخل في النصوص */
-h1, h2, h3, p {
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: break-word;
-}
-
-/* تحسين انتقال السلايدر */
-.swiper-slide {
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-/* تحسينات إضافية للهواتف الصغيرة جدًا (مثل iPhone SE) */
-@media (max-width: 360px) {
-  .landing-title {
-    font-size: 1.3rem;
-  }
-
-  .landing-subtitle {
-    font-size: 0.85rem;
-  }
-
-  .landing-logo {
-    width: 180px;
-    height: 180px;
-  }
-
-  .section-title {
-    font-size: 1.3rem;
-  }
-
-  .btn-primary {
-    padding: 0.3rem 0.7rem;
-    font-size: 0.8rem;
-  }
-
-  .subject-description-card img {
-    width: 90px;
-    height: 90px;
-  }
-
-  .footer p {
-    font-size: 0.85rem;
-  }
-}
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .container {
+        max-width: 960px;
+      }
+
+      .landing-title {
+        font-size: 2.5rem;
+      }
+
+      .landing-logo {
+        width: 400px;
+        height: 400px;
+      }
+
+      .welcome-swiper .swiper-slide img,
+      .welcome-swiper .swiper-slide video {
+        height: 350px;
+      }
+
+      .section-title {
+        font-size: 2.2rem;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .container {
+        max-width: 720px;
+      }
+
+      .navbar {
+        width: 95%;
+        top: 1rem;
+      }
+
+      .landing-section {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .landing-title {
+        font-size: 2rem;
+      }
+
+      .landing-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .landing-logo {
+        width: 300px;
+        height: 300px;
+      }
+
+      .welcome-swiper .swiper-slide img,
+      .welcome-swiper .swiper-slide video {
+        height: 300px;
+      }
+
+      .branches-swiper .swiper-slide,
+      .testimonials-swiper .swiper-slide {
+        opacity: 1;
+      }
+
+      .branches-swiper .swiper-slide-prev,
+      .branches-swiper .swiper-slide-next,
+      .testimonials-swiper .swiper-slide-prev,
+      .testimonials-swiper .swiper-slide-next {
+        transform: scale(0.9);
+        filter: none;
+      }
+
+      .subject-description-card {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .subject-description-card img {
+        width: 130px;
+        height: 130px;
+      }
+
+      .stat-card {
+        padding: 1.2rem;
+      }
+
+      .footer .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        max-width: 540px;
+        padding: 0 1rem;
+      }
+
+      .navbar {
+        width: 100%;
+        border-radius: 0;
+        top: 0;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: white;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+        border-radius: 0 0 12px 12px;
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      .nav-link {
+        padding: 0.75rem;
+        text-align: center;
+        width: 100%;
+        font-size: 1rem;
+      }
+
+      .landing-title {
+        font-size: 1.8rem;
+      }
+
+      .landing-subtitle {
+        font-size: 1rem;
+      }
+
+      .landing-logo {
+        width: 250px;
+        height: 250px;
+      }
+
+      .welcome-swiper .swiper-slide img,
+      .welcome-swiper .swiper-slide video {
+        height: 250px;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .branch-card,
+      .testimonial-card {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      .branches-swiper .swiper-slide-prev,
+      .branches-swiper .swiper-slide-next,
+      .testimonials-swiper .swiper-slide-prev,
+      .testimonials-swiper .swiper-slide-next {
+        display: none;
+      }
+
+      .stat-card h3 {
+        font-size: 1.5rem;
+      }
+
+      .stat-card p {
+        font-size: 0.9rem;
+      }
+
+      .subject-item h3 {
+        font-size: 1.1rem;
+      }
+
+      .subject-description-card img {
+        width: 120px;
+        height: 120px;
+      }
+
+      .event-card h4 {
+        font-size: 1.1rem;
+      }
+
+      .btn-primary {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .footer .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .back-to-top {
+        bottom: 1.5rem;
+        left: 1.5rem;
+        width: 45px;
+        height: 45px;
+      }
+
+      .back-to-top i {
+        font-size: 1.3rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .container {
+        max-width: 100%;
+        padding: 0 0.75rem;
+      }
+
+      .landing-title {
+        font-size: 1.5rem;
+      }
+
+      .landing-subtitle {
+        font-size: 0.9rem;
+      }
+
+      .landing-logo {
+        width: 200px;
+        height: 200px;
+      }
+
+      .welcome-swiper .swiper-slide img,
+      .welcome-swiper .swiper-slide video {
+        height: 200px;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+      }
+
+      .section-title::after {
+        width: 80px;
+      }
+
+      .branch-card,
+      .testimonial-card {
+        padding: 1rem;
+      }
+
+      .stat-card {
+        padding: 1rem;
+      }
+
+      .stat-card i {
+        font-size: 2rem;
+      }
+
+      .stat-card h3 {
+        font-size: 1.3rem;
+      }
+
+      .subject-item {
+        padding: 0.5rem;
+      }
+
+      .subject-number {
+        width: 1.8rem;
+        height: 1.8rem;
+        font-size: 0.9rem;
+      }
+
+      .subject-item h3 {
+        font-size: 1rem;
+      }
+
+      .subject-description-card {
+        padding: 1rem;
+      }
+
+      .subject-description-card img {
+        width: 100px;
+        height: 100px;
+      }
+
+      .subject-description-card p {
+        font-size: 0.95rem;
+      }
+
+      .event-card {
+        padding: 1rem;
+      }
+
+      .event-card h4 {
+        font-size: 1rem;
+      }
+
+      .event-date {
+        font-size: 0.9rem;
+      }
+
+      .btn-primary {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+      }
+
+      .footer h4 {
+        font-size: 1.1rem;
+      }
+
+      .footer p {
+        font-size: 0.9rem;
+      }
+
+      .footer i {
+        font-size: 1.3rem;
+        margin: 0 0.5rem;
+      }
+
+      .back-to-top {
+        bottom: 1rem;
+        left: 1rem;
+        width: 40px;
+        height: 40px;
+      }
+
+      .back-to-top i {
+        font-size: 1.2rem;
+      }
+
+      .contact-section iframe {
+        height: 250px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .landing-title {
+        font-size: 1.3rem;
+      }
+
+      .landing-subtitle {
+        font-size: 0.85rem;
+      }
+
+      .landing-logo {
+        width: 180px;
+        height: 180px;
+      }
+
+      .section-title {
+        font-size: 1.3rem;
+      }
+
+      .btn-primary {
+        padding: 0.3rem 0.7rem;
+        font-size: 0.8rem;
+      }
+
+      .subject-description-card img {
+        width: 90px;
+        height: 90px;
+      }
+
+      .footer p {
+        font-size: 0.85rem;
+      }
+    }
+
+    /* تحسين أداء Swiper */
+    .branches-swiper,
+    .testimonials-swiper,
+    .welcome-swiper {
+      overflow: hidden;
+    }
+
+    .swiper-slide {
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    /* تحسين الصور */
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* رسالة خطأ تحميل النموذج */
+    .logo-error {
+      color: #EF4444;
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -1122,7 +1132,93 @@ h1, h2, h3, p {
   <script type="text/babel">
     const { useEffect, useState } = React;
 
-    // Navbar Component (Updated for better aesthetics)
+    const ThreeLogo = ({ className }) => {
+      const containerRef = React.useRef();
+      const [error, setError] = useState(null);
+
+      useEffect(() => {
+        try {
+          const scene = new THREE.Scene();
+          const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+          const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+          const container = containerRef.current;
+          renderer.setSize(container.clientWidth, container.clientHeight);
+          container.appendChild(renderer.domElement);
+
+          const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+          scene.add(ambientLight);
+          const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+          directionalLight.position.set(0, 1, 1);
+          scene.add(directionalLight);
+
+          const loader = new THREE.GLTFLoader();
+          let model;
+          loader.load(
+            'logo.glb', // استخدام logo.glb بدلاً من logo.gltf
+            (gltf) => {
+              model = gltf.scene;
+              console.log('تم تحميل النموذج بنجاح:', model);
+              scene.add(model);
+
+              const box = new THREE.Box3().setFromObject(model);
+              const size = box.getSize(new THREE.Vector3()).length();
+              const scale = 50 / size;
+              model.scale.set(scale, scale, scale);
+
+              const center = box.getCenter(new THREE.Vector3());
+              model.position.sub(center.multiplyScalar(scale));
+
+              camera.position.z = size * scale * 2;
+              setError(null); // إزالة رسالة الخطأ إذا نجح التحميل
+            },
+            (progress) => {
+              console.log('تقدم التحميل:', (progress.loaded / progress.total * 100) + '%');
+            },
+            (error) => {
+              console.error('خطأ في تحميل النموذج:', error);
+              setError('فشل تحميل الشعار ثلاثي الأبعاد. تأكد من وجود الملف.');
+            }
+          );
+
+          const animate = () => {
+            requestAnimationFrame(animate);
+            if (model) {
+              model.rotation.y += 0.005;
+            }
+            renderer.render(scene, camera);
+          };
+          animate();
+
+          const handleResize = () => {
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+          };
+          window.addEventListener('resize', handleResize);
+
+          return () => {
+            window.removeEventListener('resize', handleResize);
+            if (container.contains(renderer.domElement)) {
+              container.removeChild(renderer.domElement);
+            }
+          };
+        } catch (error) {
+          console.error('خطأ في تهيئة Three.js:', error);
+          setError('حدث خطأ أثناء تحميل الشعار ثلاثي الأبعاد.');
+        }
+      }, []);
+
+      return (
+        <div className={className} ref={containerRef}>
+          {error && <div className="logo-error">{error}</div>}
+        </div>
+      );
+    };
+
+    // Navbar Component
     const Navbar = () => {
       const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -1137,7 +1233,7 @@ h1, h2, h3, p {
               <img src="logo1.png" alt="شعار مركز الماهر بالقرآن لتعليم القرآن الكريم" className="h-20" loading="lazy" />
             </div>
             <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-              {['الرئيسية', 'عن_المركز', 'الفروع', 'الأقسام', 'المواد', 'الإحصائيات', 'آراء_الطلاب', 'الأحداث_القادمة', 'تواصل_معنا'].map((item) => (
+              {['الرئيسية', 'عن_المركز', 'الفروع', 'الأقسام', 'المواد', 'الإحصائيات', 'آراء_الطلاب', 'الأحداث_القادمة'].map((item) => (
                 <li key={item}>
                   <a href={`#${item}`} className="nav-link" onClick={() => setIsMenuOpen(false)}>
                     {item.replace('_', ' ')}
@@ -1166,7 +1262,7 @@ h1, h2, h3, p {
               <p className="landing-subtitle">نصنع جيلًا قرآنيًا حافظًا لكتاب الله، متدبرًا لمعانيه، عاملًا بمقتضاه</p>
               <a href="#الرئيسية" className="btn-primary">اكتشف المزيد</a>
             </div>
-            <img src="logo.png" alt="شعار مركز الماهر بالقرآن لتعليم القرآن الكريم" className="landing-logo" loading="lazy" />
+            <ThreeLogo className="landing-logo" />
           </div>
         </section>
       );
@@ -1269,20 +1365,19 @@ h1, h2, h3, p {
       );
     };
 
-    // Branches Section Component (Updated with unique images and Facebook links)
+    // Branches Section Component
     const BranchesSection = () => {
       const branches = [
         { name: 'فرع المسيلة المركزي', image: '7.jpg', facebook: 'https://www.facebook.com/maher.msilacentral' },
         { name: 'فرع مزير', image: '7.jpg', facebook: 'https://www.facebook.com/maher.ouledsidiibrahim' },
-        { name: 'فرع بوسعادة',  image: '7.jpg', facebook: 'https://www.facebook.com/maher.boussada' },
-        { name: 'فرع حمام الضلعة ',  image: '7.jpg', facebook: 'https://www.facebook.com/maher.sidiissa' },
-        { name: 'فرع أهل الواد',  image: '7.jpg', facebook: 'https://www.facebook.com/maher.elhammam' },
-        { name: 'فرع بوخميسة ',  image: '7.jpg', facebook: 'https://www.facebook.com/maher.ainelhajal' },
-        { name: 'فرع تامونت',  image: '7.jpg', facebook: 'https://www.facebook.com/maher.chellal' },
-        { name: 'فرع ونوغة',  image: '7.jpg', facebook: 'https://www.facebook.com/maher.moghir' },
+        { name: 'فرع بوسعادة', image: '7.jpg', facebook: 'https://www.facebook.com/maher.boussada' },
+        { name: 'فرع حمام الضلعة', image: '7.jpg', facebook: 'https://www.facebook.com/maher.sidiissa' },
+        { name: 'فرع أهل الواد', image: '7.jpg', facebook: 'https://www.facebook.com/maher.elhammam' },
+        { name: 'فرع بوخميسة', image: '7.jpg', facebook: 'https://www.facebook.com/maher.ainelhajal' },
+        { name: 'فرع تامونت', image: '7.jpg', facebook: 'https://www.facebook.com/maher.chellal' },
+        { name: 'فرع ونوغة', image: '7.jpg', facebook: 'https://www.facebook.com/maher.moghir' },
         { name: 'فرع إقامة السرايا', image: '7.jpg', facebook: 'https://www.facebook.com/maher.bensrour' },
-        { name: 'فرع أولاد دراج',  image: '7.jpg', facebook: 'https://www.facebook.com/maher.ouledderradj' },
-        
+        { name: 'فرع أولاد دراج', image: '7.jpg', facebook: 'https://www.facebook.com/maher.ouledderradj' },
       ];
 
       useEffect(() => {
@@ -1368,7 +1463,7 @@ h1, h2, h3, p {
       );
     };
 
-    // Subjects Section Component (Updated with specified images)
+    // Subjects Section Component
     const SubjectsSection = () => {
       const [selectedSubject, setSelectedSubject] = useState(null);
       const [currentIndex, setCurrentIndex] = useState(0);
@@ -1494,7 +1589,7 @@ h1, h2, h3, p {
       );
     };
 
-    // Testimonials Section Component (Updated with new testimonials)
+    // Testimonials Section Component
     const TestimonialsSection = () => {
       const testimonials = [
         { name: 'كبوية أصيل', role: 'طالبة', image: '11.jpg', feedback: 'أنا أحب مركز الماهر لأنه علمني كيف أقرأ القرآن بشكل صحيح. المعلمون لطفاء ويساعدونني دائمًا. أشعر بالسعادة عندما أذهب إلى الدروس.' },
@@ -1556,7 +1651,7 @@ h1, h2, h3, p {
       );
     };
 
-    // Events Section Component (Updated with new events)
+    // Events Section Component
     const EventsSection = () => {
       const events = [
         { title: 'الحفل الختامي', date: 'نهاية شهر جويلية', description: 'حفل ختامي لتكريم الطلاب المتفوقين واختتام العام الدراسي.' },
@@ -1629,6 +1724,7 @@ h1, h2, h3, p {
       );
     };
 
+  
     // Footer Component
     const Footer = () => {
       return (
