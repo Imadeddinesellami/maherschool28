@@ -6,8 +6,6 @@
   <meta name="description" content="مركز الماهر بالقرآن لتعليم القرآن الكريم وعلومه في ولاية المسيلة، الجزائر، يهدف إلى إنشاء جيل قرآني متدبر وعامل بكتاب الله">
   <meta name="keywords" content="تعليم القرآن, حفظ القرآن, تجويد, مركز الماهر, المسيلة, الجزائر">
   <title>مركز الماهر بالقرآن</title>
-  <!-- Three.js and GLTFLoader -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
   <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -17,6 +15,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Google Fonts for Arabic Typography -->
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Three.js and FBXLoader -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/FBXLoader.js"></script>
   <style>
     :root {
       --primary: #1E3A8A; /* أزرق داكن */
@@ -599,7 +600,7 @@
       color: var(--primary);
       background: rgba(255, 255, 255, 0.8);
       border-radius: 50%;
-      width: 40px;
+      width: 3px;
       height: 40px;
       display: flex;
       align-items: center;
@@ -1024,7 +1025,7 @@
       }
 
       .btn-primary {
- assent: 0.4rem 0.8rem;
+        padding: 0.4rem 0.8rem;
         font-size: 0.85rem;
       }
 
@@ -1107,19 +1108,6 @@
       height: auto;
       display: block;
     }
-
-    /* رسائل تحميل وخطأ */
-    .logo-loading,
-    .logo-error {
-      color: #4B5563;
-      text-align: center;
-      font-size: 1.2rem;
-      margin-top: 1rem;
-    }
-
-    .logo-error {
-      color: #EF4444;
-    }
   </style>
 </head>
 <body>
@@ -1138,101 +1126,75 @@
     const { useEffect, useState } = React;
 
     const ThreeLogo = ({ className }) => {
-      const containerRef = React.useRef();
-      const [status, setStatus] = useState('loading'); // loading, success, error
-      const [errorMessage, setErrorMessage] = useState('');
+  const containerRef = React.useRef();
 
-      useEffect(() => {
-        let isMounted = true;
+  useEffect(() => {
+    try {
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 
-        try {
-          const scene = new THREE.Scene();
-          const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-          const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      const container = containerRef.current;
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      container.appendChild(renderer.domElement);
 
-          const container = containerRef.current;
-          renderer.setSize(container.clientWidth, container.clientHeight);
-          container.appendChild(renderer.domElement);
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+      scene.add(ambientLight);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+      directionalLight.position.set(0, 1, 1);
+      scene.add(directionalLight);
 
-          const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-          scene.add(ambientLight);
-          const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-          directionalLight.position.set(0, 1, 1);
-          scene.add(directionalLight);
+      const loader = new THREE.GLTFLoader();
+      let model;
+      loader.load('logo.gltf', (gltf) => {
+        model = gltf.scene;
+        console.log('تم تحميل النموذج بنجاح:', model);
+        scene.add(model);
 
-          const loader = new THREE.GLTFLoader();
-          let model;
-          loader.load(
-            'logo.glb', // تأكد من أن الملف موجود في المجلد الرئيسي
-            (gltf) => {
-              if (!isMounted) return;
-              model = gltf.scene;
-              console.log('تم تحميل النموذج بنجاح:', model);
-              scene.add(model);
+        const box = new THREE.Box3().setFromObject(model);
+        const size = box.getSize(new THREE.Vector3()).length();
+        const scale = 50 / size;
+        model.scale.set(scale, scale, scale);
 
-              const box = new THREE.Box3().setFromObject(model);
-              const size = box.getSize(new THREE.Vector3()).length();
-              const scale = 50 / size;
-              model.scale.set(scale, scale, scale);
+        const center = box.getCenter(new THREE.Vector3());
+        model.position.sub(center.multiplyScalar(scale));
 
-              const center = box.getCenter(new THREE.Vector3());
-              model.position.sub(center.multiplyScalar(scale));
+        camera.position.z = size * scale * 2;
+      }, (progress) => {
+        console.log('تقدم التحميل:', (progress.loaded / progress.total * 100) + '%');
+      }, (error) => {
+        console.error('خطأ في تحميل النموذج:', error);
+      });
 
-              camera.position.z = size * scale * 2;
-              setStatus('success');
-            },
-            (progress) => {
-              console.log('تقدم التحميل:', (progress.loaded / progress.total * 100) + '%');
-            },
-            (error) => {
-              if (!isMounted) return;
-              console.error('خطأ في تحميل النموذج:', error);
-              setStatus('error');
-              setErrorMessage('فشل تحميل الشعار ثلاثي الأبعاد. تأكد من وجود ملف logo.glb في المجلد الرئيسي.');
-            }
-          );
-
-          const animate = () => {
-            if (!isMounted) return;
-            requestAnimationFrame(animate);
-            if (model) {
-              model.rotation.y += 0.005;
-            }
-            renderer.render(scene, camera);
-          };
-          animate();
-
-          const handleResize = () => {
-            const width = container.clientWidth;
-            const height = container.clientHeight;
-            renderer.setSize(width, height);
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
-          };
-          window.addEventListener('resize', handleResize);
-
-          return () => {
-            isMounted = false;
-            window.removeEventListener('resize', handleResize);
-            if (container.contains(renderer.domElement)) {
-              container.removeChild(renderer.domElement);
-            }
-          };
-        } catch (error) {
-          if (!isMounted) return;
-          console.error('خطأ في تهيئة Three.js:', error);
-          setStatus('error');
-          setErrorMessage('حدث خطأ أثناء تهيئة الشعار ثلاثي الأبعاد.');
+      const animate = () => {
+        requestAnimationFrame(animate);
+        if (model) {
+          model.rotation.y += 0.005;
         }
-      }, []);
+        renderer.render(scene, camera);
+      };
+      animate();
 
-      return (
-        <div className={className} ref={containerRef}>
-          {status === 'loading' && <div className="logo-loading">جارٍ تحميل الشعار...</div>}
-          {status === 'error' && <div className="logo-error">{errorMessage}</div>}
-        </div>
-      );
-    };
+      const handleResize = () => {
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+        renderer.setSize(width, height);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+      };
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        container.removeChild(renderer.domElement);
+      };
+    } catch (error) {
+      console.error('خطأ في تهيئة Three.js:', error);
+    }
+  }, []);
+
+  return <div className={className} ref={containerRef}></div>;
+};
 
     // Navbar Component
     const Navbar = () => {
@@ -1249,7 +1211,7 @@
               <img src="logo1.png" alt="شعار مركز الماهر بالقرآن لتعليم القرآن الكريم" className="h-20" loading="lazy" />
             </div>
             <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-              {['الرئيسية', 'عن_المركز', 'الفروع', 'الأقسام', 'المواد', 'الإحصائيات', 'آراء_الطلاب', 'الأحداث_القادمة'].map((item) => (
+              {['الرئيسية', 'عن_المركز', 'الفروع', 'الأقسام', 'المواد', 'الإحصائيات', 'آراء_الطلاب', 'الأحداث_القادمة', ].map((item) => (
                 <li key={item}>
                   <a href={`#${item}`} className="nav-link" onClick={() => setIsMenuOpen(false)}>
                     {item.replace('_', ' ')}
@@ -1725,7 +1687,7 @@
                 <p className="text-gray-600 mb-2"><strong>الهاتف:</strong> 0676169775</p>
                 <p className="text-gray-600 mb-4"><strong>البريد الإلكتروني:</strong> maher.belquran28@gmail.com</p>
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3248.771432432432!2d4.5032957!3d35.7055517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sM%27Sila%2C%20Algeria!5e0!3m2!1sen!2
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3248.771432432432!2d4.5032957!3d35.7055517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sM%27Sila%2C%20Algeria!5e0!3m2!1sen!2sus!4v1697582972987!5m2!1sen!2sus"
                   width="100%"
                   height="300"
                   style={{ border: 0, borderRadius: '12px' }}
@@ -1740,8 +1702,6 @@
       );
     };
 
-  
-  
     // Footer Component
     const Footer = () => {
       return (
@@ -1851,4 +1811,4 @@
     }
   </script>
 </body>
-</html>
+</html> 
