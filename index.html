@@ -867,8 +867,8 @@
       }
 
       .landing-logo {
-        width: 250px;
-        height: 250px;
+        width: 500px;
+        height: 500px;
       }
 
       .welcome-swiper .swiper-slide img,
@@ -950,8 +950,8 @@
       }
 
       .landing-logo {
-        width: 200px;
-        height: 200px;
+        width: 500px;
+        height: 500px;
       }
 
       .welcome-swiper .swiper-slide img,
@@ -1174,7 +1174,7 @@
               // تكبير النموذج
               const box = new THREE.Box3().setFromObject(model);
               const size = box.getSize(new THREE.Vector3()).length();
-              const scale = (500 / size) * 1.5; // زيادة الحجم بنسبة 1.5x
+              const scale = (250 / size) * 1.5; // زيادة الحجم بنسبة 1.5x
               model.scale.set(scale, scale, scale);
 
               const center = box.getCenter(new THREE.Vector3());
