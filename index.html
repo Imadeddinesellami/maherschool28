@@ -1174,7 +1174,7 @@
               // تكبير النموذج
               const box = new THREE.Box3().setFromObject(model);
               const size = box.getSize(new THREE.Vector3()).length();
-              const scale = (100 / size) * 1.5; // زيادة الحجم بنسبة 1.5x
+              const scale = (500 / size) * 1.5; // زيادة الحجم بنسبة 1.5x
               model.scale.set(scale, scale, scale);
 
               const center = box.getCenter(new THREE.Vector3());
