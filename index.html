@@ -1181,7 +1181,7 @@
               model.position.sub(center.multiplyScalar(scale));
 
               // تعديل موقع الكاميرا لتتناسب مع الحجم الجديد
-              camera.position.z = size * scale * 5; // زيادة المسافة لتجنب الاقتصاص
+              camera.position.z = size * scale * 3; // زيادة المسافة لتجنب الاقتصاص
               setStatus('success');
             },
             (progress) => {
