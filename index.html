@@ -186,8 +186,8 @@
 
     .landing-logo {
   width: 100%;
-  max-width: 600px; /* حجم أكبر للشاشات الكبيرة */
-  height: 600px;
+  max-width: 700px; /* حجم أكبر للشاشات الكبيرة */
+  height: 700px;
   display: block;
   position: relative;
   margin: 0 auto; /* توسيط الحاوية */
@@ -1219,7 +1219,7 @@
 
           // ضبط الحجم بناءً على عرض الشاشة
           const isMobile = window.innerWidth <= 768;
-          const scaleFactor = isMobile ? 3 : 5; // حجم أكبر على الهواتف
+          const scaleFactor = isMobile ? 1 : 1; // حجم أكبر على الهواتف
           const scale = (50 / size) * scaleFactor;
           console.log('قيمة الحجم المطبقة:', scale);
           model.scale.set(scale, scale, scale);
