@@ -1212,7 +1212,7 @@
           model.position.sub(center.multiplyScalar(scale));
 
           // إبعاد الكاميرا لضمان رؤية النموذج بالكامل
-          camera.position.z = size * scale * (isMobile ? 8 : 12); // زيادة المسافة
+          camera.position.z = 100; // زيادة المسافة
           console.log('موقع الكاميرا Z:', camera.position.z);
           console.log('عرض الشاشة:', window.innerWidth, 'كثافة البكسل:', window.devicePixelRatio);
 
