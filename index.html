@@ -47,7 +47,6 @@
 
     h1, h2, h3 {
       font-family: 'Cairo', sans-serif;
-      font-sizes:48;
       font-weight: 700;
       color: var(--primary);
       overflow-wrap: break-word;
@@ -1170,7 +1169,7 @@
     try {
       // إعداد المشهد والكاميرا والعارض
       const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, 1, 0.01, 1000); // زيادة نطاق near و far
+      const camera = new THREE.PerspectiveCamera(75, 1, 1, 1000); // زيادة نطاق near و far
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 
       const container = containerRef.current;
@@ -1213,7 +1212,7 @@
           model.position.sub(center.multiplyScalar(scale));
 
           // إبعاد الكاميرا لضمان رؤية النموذج بالكامل
-          camera.position.z = 100; // زيادة المسافة
+          camera.position.z = 400; // زيادة المسافة
           console.log('موقع الكاميرا Z:', camera.position.z);
           console.log('عرض الشاشة:', window.innerWidth, 'كثافة البكسل:', window.devicePixelRatio);
 
@@ -1241,16 +1240,7 @@
       };
       animate();
 
-      // التعامل مع تغيير حجم النافذة
-      const handleResize = () => {
-        const width = container.clientWidth;
-        const height = container.clientHeight;
-        renderer.setSize(width, height);
-        renderer.setPixelRatio(window.devicePixelRatio || 1);
-        camera.aspect = width / height;
-        camera.updateProjectionMatrix();
-      };
-      window.addEventListener('resize', handleResize);
+      
 
       // تنظيف الموارد
       return () => {
