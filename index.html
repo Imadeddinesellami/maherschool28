@@ -47,6 +47,7 @@
 
     h1, h2, h3 {
       font-family: 'Cairo', sans-serif;
+      font-sizes:48;
       font-weight: 700;
       color: var(--primary);
       overflow-wrap: break-word;
@@ -1169,7 +1170,7 @@
     try {
       // إعداد المشهد والكاميرا والعارض
       const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, 1, 0.01, 2000); // زيادة نطاق near و far
+      const camera = new THREE.PerspectiveCamera(75, 1, 0.01, 1000); // زيادة نطاق near و far
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 
       const container = containerRef.current;
@@ -1201,7 +1202,7 @@
           console.log('حجم النموذج الأصلي:', size);
 
           const isMobile = window.innerWidth <= 768;
-          const scaleFactor = isMobile ? 80 : 30;
+          const scaleFactor = isMobile ? 3 : 4;
           const scale = (50 / size) * scaleFactor;
           console.log('قيمة الحجم المطبقة:', scale);
           model.scale.set(scale, scale, scale);
@@ -1234,7 +1235,7 @@
         if (!isMounted) return;
         requestAnimationFrame(animate);
         if (model) {
-          model.rotation.y += 0.005; // دوران حول المحور Y فقط
+          model.rotation.y += 0.01; // دوران حول المحور Y فقط
         }
         renderer.render(scene, camera);
       };
