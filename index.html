@@ -186,11 +186,10 @@
 
     .landing-logo {
   width: 100%;
-  max-width: 750px; /* حجم أكبر للشاشات الكبيرة */
+  max-width: 700px; /* حجم أكبر للشاشات الكبيرة */
   height: 800px;
   display: block;
   position: relative;
-      margine-right:-100px;
 }
 
 .landing-logo canvas {
@@ -1226,7 +1225,7 @@
           model.position.set(0, 0, 0); // ضمان ثبات الموقع في المركز
           model.position.sub(center.multiplyScalar(scale));
 
-          camera.position.z = size * scale * (isMobile ? 6 : 10);
+          camera.position.z = 100;
           console.log('موقع الكاميرا Z:', camera.position.z);
           console.log('عرض الشاشة:', window.innerWidth, 'كثافة البكسل:', window.devicePixelRatio);
 
