@@ -185,18 +185,55 @@
     }
 
     .landing-logo {
-      width: 700px;
-      height: 700px;
-      display: block;
-      position: relative;
-    }
+  width: 100%;
+  max-width: 600px; /* حجم أكبر للشاشات الكبيرة */
+  height: 600px;
+  display: block;
+  position: relative;
+  margin: 0 auto; /* توسيط الحاوية */
+}
 
-    .landing-logo canvas {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      animation: shakeUpDown 2s infinite ease-in-out;
-    }
+.landing-logo canvas {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+  animation: shakeUpDown 2s infinite ease-in-out;
+}
+
+/* شاشات أقل من 992px */
+@media (max-width: 992px) {
+  .landing-logo {
+    max-width: 400px;
+    height: 400px;
+  }
+}
+
+/* شاشات أقل من 768px (الهواتف) */
+@media (max-width: 768px) {
+  .landing-logo {
+    max-width: 80vw; /* استخدام نسبة من عرض الشاشة */
+    height: 50vw; /* ارتفاع متناسب */
+    min-height: 300px; /* الحد الأدنى للارتفاع */
+  }
+}
+
+/* شاشات أقل من 576px (هواتف صغيرة) */
+@media (max-width: 576px) {
+  .landing-logo {
+    max-width: 90vw;
+    height: 45vw;
+    min-height: 250px;
+  }
+}
+
+/* شاشات أقل من 360px */
+@media (max-width: 360px) {
+  .landing-logo {
+    max-width: 100vw;
+    height: 40vw;
+    min-height: 200px;
+  }
+}
 
     @keyframes shakeUpDown {
       0%, 100% { transform: translateY(0); }
@@ -1137,105 +1174,122 @@
   <script type="text/babel">
     const { useEffect, useState } = React;
 
-    const ThreeLogo = ({ className }) => {
-      const containerRef = React.useRef();
-      const [status, setStatus] = useState('loading'); // loading, success, error
-      const [errorMessage, setErrorMessage] = useState('');
+    cconst ThreeLogo = ({ className }) => {
+  const containerRef = React.useRef();
+  const [status, setStatus] = useState('loading'); // loading, success, error
+  const [errorMessage, setErrorMessage] = useState('');
 
-      useEffect(() => {
-        let isMounted = true;
+  useEffect(() => {
+    let isMounted = true;
 
-        try {
-          const scene = new THREE.Scene();
-          const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-          const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    try {
+      // إعداد المشهد والكاميرا والعارض
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 
-          const container = containerRef.current;
-          renderer.setSize(container.clientWidth, container.clientHeight);
-          container.appendChild(renderer.domElement);
+      const container = containerRef.current;
+      // ضبط دقة العارض لدعم شاشات عالية الدقة
+      renderer.setPixelRatio(window.devicePixelRatio || 1);
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      container.appendChild(renderer.domElement);
 
-          // إضافة إضاءة محيطة بسيطة
-          const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-scene.add(ambientLight);
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-directionalLight.position.set(0, 1, 1);
-scene.add(directionalLight);
+      // إضافة إضاءة محيطة وموجهة
+      const ambientLight = new THREE.AmbientLight(0xffffff, 1.0); // إضاءة محيطة قوية
+      scene.add(ambientLight);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1.0); // إضاءة موجهة قوية
+      directionalLight.position.set(0, 1, 1);
+      scene.add(directionalLight);
 
-          const loader = new THREE.GLTFLoader();
-          let model;
-          loader.load(
-            'logo.glb', // تأكد من أن الملف موجود في المجلد الرئيسي
-            (gltf) => {
-              if (!isMounted) return;
-              model = gltf.scene;
-              console.log('تم تحميل النموذج بنجاح:', model);
-              scene.add(model);
-
-              // تكبير النموذج
-              const box = new THREE.Box3().setFromObject(model);
-              const size = box.getSize(new THREE.Vector3()).length();
-              const scale = (50 / size) * 1.5; // زيادة الحجم بنسبة 3x
-              model.scale.set(scale, scale, scale);
-
-              const center = box.getCenter(new THREE.Vector3());
-              model.position.sub(center.multiplyScalar(scale));
-
-              // تعديل موقع الكاميرا لتتناسب مع الحجم الجديد
-            camera.position.z = 100; // قيمة ثابتة للكاميرا         
-              setStatus('success');
-            },
-            (progress) => {
-              console.log('تقدم التحميل:', (progress.loaded / progress.total * 100) + '%');
-            },
-            (error) => {
-              if (!isMounted) return;
-              console.error('خطأ في تحميل النموذج:', error);
-              setStatus('error');
-              setErrorMessage('فشل تحميل الشعار ثلاثي الأبعاد. تأكد من وجود ملف logo.glb في المجلد الرئيسي.');
-            }
-          );
-
-          const animate = () => {
-            if (!isMounted) return;
-            requestAnimationFrame(animate);
-            if (model) {
-              model.rotation.y += 0.005;
-            }
-            renderer.render(scene, camera);
-          };
-          animate();
-
-          const handleResize = () => {
-            const width = container.clientWidth;
-            const height = container.clientHeight;
-            renderer.setSize(width, height);
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
-          };
-          window.addEventListener('resize', handleResize);
-
-          return () => {
-            isMounted = false;
-            window.removeEventListener('resize', handleResize);
-            if (container.contains(renderer.domElement)) {
-              container.removeChild(renderer.domElement);
-            }
-          };
-        } catch (error) {
+      // تحميل النموذج
+      const loader = new THREE.GLTFLoader();
+      let model;
+      loader.load(
+        'logo.glb', // تأكد من أن الملف موجود في المجلد الرئيسي
+        (gltf) => {
           if (!isMounted) return;
-          console.error('خطأ في تهيئة Three.js:', error);
-          setStatus('error');
-          setErrorMessage('حدث خطأ أثناء تهيئة الشعار ثلاثي الأبعاد.');
-        }
-      }, []);
+          model = gltf.scene;
+          console.log('تم تحميل النموذج بنجاح:', model);
+          scene.add(model);
 
-      return (
-        <div className={className} ref={containerRef}>
-          {status === 'loading' && <div className="logo-loading">جارٍ تحميل الشعار...</div>}
-          {status === 'error' && <div className="logo-error">{errorMessage}</div>}
-        </div>
+          // تكبير النموذج
+          const box = new THREE.Box3().setFromObject(model);
+          const size = box.getSize(new THREE.Vector3()).length();
+          console.log('حجم النموذج الأصلي:', size);
+
+          // ضبط الحجم بناءً على عرض الشاشة
+          const isMobile = window.innerWidth <= 768;
+          const scaleFactor = isMobile ? 100 : 50; // حجم أكبر على الهواتف
+          const scale = (50 / size) * scaleFactor;
+          console.log('قيمة الحجم المطبقة:', scale);
+          model.scale.set(scale, scale, scale);
+
+          const center = box.getCenter(new THREE.Vector3());
+          model.position.sub(center.multiplyScalar(scale));
+
+          // تعديل موقع الكاميرا بناءً على الحجم
+          camera.position.z = size * scale * (isMobile ? 10 : 15);
+          console.log('موقع الكاميرا Z:', camera.position.z);
+          console.log('عرض الشاشة:', window.innerWidth, 'كثافة البكسل:', window.devicePixelRatio);
+
+          setStatus('success');
+        },
+        (progress) => {
+          console.log('تقدم التحميل:', (progress.loaded / progress.total * 100) + '%');
+        },
+        (error) => {
+          if (!isMounted) return;
+          console.error('خطأ في تحميل النموذج:', error);
+          setStatus('error');
+          setErrorMessage('فشل تحميل الشعار ثلاثي الأبعاد. تأكد من وجود ملف logo.glb في المجلد الرئيسي أو تحقق من وحدة التحكم.');
+        }
       );
-    };
+
+      // دالة التحريك
+      const animate = () => {
+        if (!isMounted) return;
+        requestAnimationFrame(animate);
+        if (model) {
+          model.rotation.y += 0.005;
+        }
+        renderer.render(scene, camera);
+      };
+      animate();
+
+      // التعامل مع تغيير حجم النافذة
+      const handleResize = () => {
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+        renderer.setSize(width, height);
+        renderer.setPixelRatio(window.devicePixelRatio || 1); // تحديث الدقة
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+      };
+      window.addEventListener('resize', handleResize);
+
+      // تنظيف الموارد
+      return () => {
+        isMounted = false;
+        window.removeEventListener('resize', handleResize);
+        if (container.contains(renderer.domElement)) {
+          container.removeChild(renderer.domElement);
+        }
+      };
+    } catch (error) {
+      if (!isMounted) return;
+      console.error('خطأ في تهيئة Three.js:', error);
+      setStatus('error');
+      setErrorMessage('حدث خطأ أثناء تهيئة الشعار ثلاثي الأبعاد. تحقق من وحدة التحكم.');
+    }
+  }, []);
+
+  return (
+    <div className={className} ref={containerRef}>
+      {status === 'loading' && <div className="logo-loading">جارٍ تحميل الشعار...</div>}
+      {status === 'error' && <div className="logo-error">{errorMessage}</div>}
+    </div>
+  );
+};
 
     // Navbar Component
     const Navbar = () => {
