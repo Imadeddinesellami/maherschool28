@@ -45,7 +45,7 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    h1, h2, h3 {
+    h1, h2, h3,h4 {
       font-family: 'Cairo', sans-serif;
       font-weight: 700;
       color: var(--primary);
@@ -240,9 +240,14 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-15px); }
     }
-
+h4 {
+  font-size: 3rem;
+  font-weight: 700;
+      line-height: 1.2;
+  color:#b79030;
+}
     .landing-title {
-      font-size: 5rem;
+      font-size: 3rem;
       font-weight: 700;
       line-height: 1.2;
     }
@@ -1218,7 +1223,7 @@
           console.log('حجم النموذج الأصلي:', size);
 
           const isMobile = window.innerWidth <= 768;
-          const scaleFactor = isMobile ? 3 : 4;
+          const scaleFactor = isMobile ? 4 : 5;
           const scale = (50 / size) * scaleFactor;
           console.log('قيمة الحجم المطبقة:', scale);
           model.scale.set(scale, scale, scale);
@@ -1229,7 +1234,7 @@
           model.position.sub(center.multiplyScalar(scale));
 
           // إبعاد الكاميرا لضمان رؤية النموذج بالكامل
-          camera.position.z = 400; // زيادة المسافة
+          camera.position.z = 300; // زيادة المسافة
           console.log('موقع الكاميرا Z:', camera.position.z);
           console.log('عرض الشاشة:', window.innerWidth, 'كثافة البكسل:', window.devicePixelRatio);
 
@@ -1322,7 +1327,9 @@
         <section id="landing" className="landing-section">
           <div className="container flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="text-right max-w-lg">
-              <h1 className="landing-title">مركز الماهر بالقرآن</h1>
+              <h1 className="landing-title">مركز الماهر</h1>
+              <h4 className="landing-title">بالقرآن</h4>
+
               <p className="landing-subtitle">نصنع جيلًا قرآنيًا حافظًا لكتاب الله، متدبرًا لمعانيه، عاملًا بمقتضاه</p>
               <a href="#الرئيسية" className="btn-primary">اكتشف المزيد</a>
             </div>
