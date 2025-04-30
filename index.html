@@ -1174,7 +1174,7 @@
   <script type="text/babel">
     const { useEffect, useState } = React;
 
-    cconst ThreeLogo = ({ className }) => {
+    const ThreeLogo = ({ className }) => {
   const containerRef = React.useRef();
   const [status, setStatus] = useState('loading'); // loading, success, error
   const [errorMessage, setErrorMessage] = useState('');
@@ -1219,7 +1219,7 @@
 
           // ضبط الحجم بناءً على عرض الشاشة
           const isMobile = window.innerWidth <= 768;
-          const scaleFactor = isMobile ? 100 : 50; // حجم أكبر على الهواتف
+          const scaleFactor = isMobile ? 150 : 50; // حجم أكبر على الهواتف
           const scale = (50 / size) * scaleFactor;
           console.log('قيمة الحجم المطبقة:', scale);
           model.scale.set(scale, scale, scale);
@@ -1228,7 +1228,7 @@
           model.position.sub(center.multiplyScalar(scale));
 
           // تعديل موقع الكاميرا بناءً على الحجم
-            camera.position.z = 100; // قيمة ثابتة للكاميرا         
+          camera.position.z = size * scale * (isMobile ? 8 : 15);
           console.log('موقع الكاميرا Z:', camera.position.z);
           console.log('عرض الشاشة:', window.innerWidth, 'كثافة البكسل:', window.devicePixelRatio);
 
@@ -1241,7 +1241,7 @@
           if (!isMounted) return;
           console.error('خطأ في تحميل النموذج:', error);
           setStatus('error');
-          setErrorMessage('فشل تحميل الشعار ثلاثي الأبعاد. تأكد من وجود ملف logo.glb في المجلد الرئيسي أو تحقق من وحدة التحكم.');
+          setErrorMessage('فشل تحميل الشعار ثلاثي الأبعاد. تأكد من وجود ملف logo.glb في المجلد الرئيسي.');
         }
       );
 
@@ -1279,7 +1279,7 @@
       if (!isMounted) return;
       console.error('خطأ في تهيئة Three.js:', error);
       setStatus('error');
-      setErrorMessage('حدث خطأ أثناء تهيئة الشعار ثلاثي الأبعاد. تحقق من وحدة التحكم.');
+      setErrorMessage('حدث خطأ أثناء تهيئة الشعار ثلاثي الأبعاد.');
     }
   }, []);
 
