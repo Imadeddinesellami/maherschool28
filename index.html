@@ -1217,7 +1217,7 @@
           console.log('حجم النموذج الأصلي:', size);
 
           const isMobile = window.innerWidth <= 768;
-          const scaleFactor = isMobile ? 5 : 6;
+          const scaleFactor = isMobile ? 3 : 4;
           const scale = (50 / size) * scaleFactor;
           console.log('قيمة الحجم المطبقة:', scale);
           model.scale.set(scale, scale, scale);
@@ -1227,7 +1227,7 @@
           model.position.set(0, 0, 0); // ضمان ثبات الموقع في المركز
           model.position.sub(center.multiplyScalar(scale));
 
-          camera.position.z = size * scale * (isMobile ? 6 : 10);
+          camera.position.z = 100;
           console.log('موقع الكاميرا Z:', camera.position.z);
           console.log('عرض الشاشة:', window.innerWidth, 'كثافة البكسل:', window.devicePixelRatio);
 
