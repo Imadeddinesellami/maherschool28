@@ -1189,15 +1189,14 @@
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 
       const container = containerRef.current;
-      // ضبط دقة العارض لدعم شاشات عالية الدقة
       renderer.setPixelRatio(window.devicePixelRatio || 1);
       renderer.setSize(container.clientWidth, container.clientHeight);
       container.appendChild(renderer.domElement);
 
       // إضافة إضاءة محيطة وموجهة
-      const ambientLight = new THREE.AmbientLight(0xffffff, 1.0); // إضاءة محيطة قوية
+      const ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
       scene.add(ambientLight);
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 1.0); // إضاءة موجهة قوية
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);
       directionalLight.position.set(0, 1, 1);
       scene.add(directionalLight);
 
@@ -1205,7 +1204,7 @@
       const loader = new THREE.GLTFLoader();
       let model;
       loader.load(
-        'logo.glb', // تأكد من أن الملف موجود في المجلد الرئيسي
+        'logo.glb',
         (gltf) => {
           if (!isMounted) return;
           model = gltf.scene;
@@ -1217,18 +1216,18 @@
           const size = box.getSize(new THREE.Vector3()).length();
           console.log('حجم النموذج الأصلي:', size);
 
-          // ضبط الحجم بناءً على عرض الشاشة
           const isMobile = window.innerWidth <= 768;
-          const scaleFactor = isMobile ? 3 : 3; // حجم أكبر على الهواتف
+          const scaleFactor = isMobile ? 80 : 30;
           const scale = (50 / size) * scaleFactor;
           console.log('قيمة الحجم المطبقة:', scale);
           model.scale.set(scale, scale, scale);
 
+          // تثبيت النموذج في مركز المشهد
           const center = box.getCenter(new THREE.Vector3());
+          model.position.set(0, 0, 0); // ضمان ثبات الموقع في المركز
           model.position.sub(center.multiplyScalar(scale));
 
-          // تعديل موقع الكاميرا بناءً على الحجم
-          camera.position.z = 100; // قيمة ثابتة للكاميرا
+          camera.position.z = size * scale * (isMobile ? 6 : 10);
           console.log('موقع الكاميرا Z:', camera.position.z);
           console.log('عرض الشاشة:', window.innerWidth, 'كثافة البكسل:', window.devicePixelRatio);
 
@@ -1246,22 +1245,23 @@
       );
 
       // دالة التحريك
-const animate = () => {
-  if (!isMounted) return;
-  requestAnimationFrame(animate);
-  if (model) {
-    model.rotation.y += 0.001; // دوران حول المحور Y فقط
-  }
-  renderer.render(scene, camera);
-};
-animate();
+      const animate = () => {
+        if (!isMounted) return;
+        requestAnimationFrame(animate);
+        if (model) {
+          model.rotation.y += 0.005; // دوران حول المحور Y فقط
+          // عدم تحديث model.position لضمان ثبات الموقع
+        }
+        renderer.render(scene, camera);
+      };
+      animate();
 
       // التعامل مع تغيير حجم النافذة
       const handleResize = () => {
         const width = container.clientWidth;
         const height = container.clientHeight;
         renderer.setSize(width, height);
-        renderer.setPixelRatio(window.devicePixelRatio || 1); // تحديث الدقة
+        renderer.setPixelRatio(window.devicePixelRatio || 1);
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
       };
