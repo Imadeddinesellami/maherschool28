@@ -1219,7 +1219,7 @@
 
           // ضبط الحجم بناءً على عرض الشاشة
           const isMobile = window.innerWidth <= 768;
-          const scaleFactor = isMobile ? 3 : 4; // حجم أكبر على الهواتف
+          const scaleFactor = isMobile ? 3 : 3; // حجم أكبر على الهواتف
           const scale = (50 / size) * scaleFactor;
           console.log('قيمة الحجم المطبقة:', scale);
           model.scale.set(scale, scale, scale);
@@ -1250,7 +1250,7 @@ const animate = () => {
   if (!isMounted) return;
   requestAnimationFrame(animate);
   if (model) {
-    model.rotation.y += 0; // دوران حول المحور Y فقط
+    model.rotation.y += 0.001; // دوران حول المحور Y فقط
   }
   renderer.render(scene, camera);
 };
