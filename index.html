@@ -186,7 +186,7 @@
 
     .landing-logo {
   width: 100%;
-  max-width: 800px; /* حجم أكبر للشاشات الكبيرة */
+  max-width: 700px; /* حجم أكبر للشاشات الكبيرة */
   height: 800px;
     margin-left: -100px; /* إزاحة نحو اليسار */
   display: block;
@@ -1247,15 +1247,15 @@
       );
 
       // دالة التحريك
-      const animate = () => {
-        if (!isMounted) return;
-        requestAnimationFrame(animate);
-        if (model) {
-          model.rotation.y += 0.005;
-        }
-        renderer.render(scene, camera);
-      };
-      animate();
+const animate = () => {
+  if (!isMounted) return;
+  requestAnimationFrame(animate);
+  if (model) {
+    model.rotation.y += 0.005; // دوران حول المحور Y فقط
+  }
+  renderer.render(scene, camera);
+};
+animate();
 
       // التعامل مع تغيير حجم النافذة
       const handleResize = () => {
