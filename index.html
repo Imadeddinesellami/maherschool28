@@ -185,7 +185,7 @@
     }
 
     .landing-logo {
-      width: 800px;
+      width: 700px;
       height: 700px;
       display: block;
       position: relative;
@@ -1174,7 +1174,7 @@ scene.add(directionalLight);
               // تكبير النموذج
               const box = new THREE.Box3().setFromObject(model);
               const size = box.getSize(new THREE.Vector3()).length();
-              const scale = (50 / size) * 2; // زيادة الحجم بنسبة 3x
+              const scale = (50 / size) * 1.5; // زيادة الحجم بنسبة 3x
               model.scale.set(scale, scale, scale);
 
               const center = box.getCenter(new THREE.Vector3());
