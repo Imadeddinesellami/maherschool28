@@ -1250,7 +1250,7 @@ const animate = () => {
   if (!isMounted) return;
   requestAnimationFrame(animate);
   if (model) {
-    model.rotation.y += 0.005; // دوران حول المحور Y فقط
+    model.rotation.y += 0; // دوران حول المحور Y فقط
   }
   renderer.render(scene, camera);
 };
