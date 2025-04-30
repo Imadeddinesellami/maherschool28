@@ -1228,7 +1228,7 @@
           model.position.sub(center.multiplyScalar(scale));
 
           // تعديل موقع الكاميرا بناءً على الحجم
-          camera.position.z = size * scale * (isMobile ? 8 : 15);
+          camera.position.z = 100; // قيمة ثابتة للكاميرا
           console.log('موقع الكاميرا Z:', camera.position.z);
           console.log('عرض الشاشة:', window.innerWidth, 'كثافة البكسل:', window.devicePixelRatio);
 
